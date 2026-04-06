@@ -1,0 +1,25 @@
+{
+  "version": "1",
+  "sources": {
+    "home-manager": {
+      "type": "GitHub",
+      "fetchType": "tarball",
+      "owner": "nix-community",
+      "repo": "home-manager",
+      "branch": "master",
+      "revision": "2097a5c82bdc099c6135eae4b111b78124604554",
+      "url": "https://github.com/nix-community/home-manager/archive/2097a5c82bdc099c6135eae4b111b78124604554.tar.gz",
+      "hash": "sha256-XUBlSgUFdvTh6+K5LcI5mJu5F5L8scmJDMRiZM484TM="
+    },
+    "lanzaboote": {
+      "type": "GitHub",
+      "fetchType": "tarball",
+      "owner": "nix-community",
+      "repo": "lanzaboote",
+      "branch": "master",
+      "revision": "45338aab3013924c75305f5cb3543b9cda993183",
+      "url": "https://github.com/nix-community/lanzaboote/archive/45338aab3013924c75305f5cb3543b9cda993183.tar.gz",
+      "hash": "sha256-rgHUoE4QhOvK3Rcl9cbuIVdjPjFjfhcTm/uPs8Y7+2w="
+    }
+  }
+}
