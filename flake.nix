@@ -215,14 +215,19 @@
         };
     in
     {
-      nixosConfigurations = {
-        zenbook = mkHost {
-          hostname = "zenbook";
-          extraModules = [ ./hosts/zenbook/extra.nix ];
-        };
-        b550f = mkHost {
-          hostname = "b550f";
-        };
-      };
+      nixosConfigurations = builtins.listToAttrs (
+        map
+          (hostname: {
+            name = hostname;
+            value = mkHost {
+              inherit hostname;
+              extraModules = [ ./hosts/${hostname}/extra.nix ];
+            };
+          })
+          [
+            "zenbook"
+            "b550f"
+          ]
+      );
     };
 }
