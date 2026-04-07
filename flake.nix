@@ -61,7 +61,13 @@
           pipewire = { enable = true; alsa.enable = true; pulse.enable = true; };
         };
 
-        xdg.portal = { enable = true; wlr.enable = true; };
+        xdg = {	  
+	  portal = { 
+	    enable = true; 
+	    wlr.enable = true; 
+	  };
+	};
+
         virtualisation.docker.enable = true;
         security.rtkit.enable = true;
         system.stateVersion = "25.11";

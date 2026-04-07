@@ -47,5 +47,7 @@
     platformTheme.name = "gtk3";
   };
 
+  xdg.configFile.nvim.source = ./home/nvim;
+
   home.stateVersion = "25.11";
 }
