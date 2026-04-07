@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nvim-config = {
       url = "github:p0ryae/nvim";
       flake = false;
@@ -27,6 +32,7 @@
       home-manager,
       lanzaboote,
       nvim-config,
+      noctalia,
       ...
     }:
     let
@@ -34,10 +40,18 @@
         {
           # config,
           pkgs,
-          # lib,
+          lib,
           ...
         }:
         {
+          nixpkgs.config.allowUnfreePredicate =
+            pkg:
+            builtins.elem (lib.getName pkg) [
+              "spotify"
+              "steam"
+              "steam-unwrapped"
+            ];
+
           networking.networkmanager.enable = true;
           systemd.services.NetworkManager-wait-online.enable = false;
 
@@ -66,7 +80,7 @@
 
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.porya = import ./home.nix { inherit nvim-config; };
+          home-manager.users.porya = import ./home.nix { inherit nvim-config noctalia; };
 
           environment.systemPackages = with pkgs; [
             git
@@ -79,20 +93,22 @@
             tmux
             btop
             sbctl
-            lon
             wiremix
             fastfetch
             tree-sitter
+
             sway
             autotiling-rs
-            noctalia-shell
             colord
             grim
             slurp
             sway-contrib.grimshot
+
             kitty
+            nautilus
             opencode
             docker
+
             nixd
             nodejs
             go
@@ -102,7 +118,11 @@
             rustup
             elixir
           ];
-          environment.sessionVariables.WLR_RENDERER = "vulkan";
+
+          environment.sessionVariables = {
+            WLR_RENDERER = "vulkan";
+          };
+
           fonts.packages = with pkgs; [
             nerd-fonts.jetbrains-mono
             inter
@@ -117,6 +137,7 @@
             };
             fish.enable = true;
             sway.enable = true;
+            steam.enable = true;
           };
 
           services = {
@@ -126,6 +147,17 @@
               alsa.enable = true;
               pulse.enable = true;
             };
+            udisks2.enable = true;
+            gvfs.enable = true;
+            flatpak.enable = true;
+          };
+
+          systemd.services.flatpak-repo = {
+            wantedBy = [ "multi-user.target" ];
+            path = [ pkgs.flatpak ];
+            script = ''
+              flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+            '';
           };
 
           xdg = {
@@ -140,10 +172,6 @@
           system.stateVersion = "25.11";
 
           nix.settings = {
-            experimental-features = [
-              "nix-command"
-              "flakes"
-            ];
             extra-substituters = [ "https://noctalia.cachix.org" ];
             extra-trusted-public-keys = [
               "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="

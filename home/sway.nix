@@ -23,8 +23,8 @@
       };
       output = {
         "*" = {
-          adaptive_sync = "on";
           color_profile = "icc ${pkgs.colord}/share/color/icc/colord/AppleRGB.icc";
+          adaptive_sync = "on";
         };
       };
       startup = [
@@ -38,7 +38,86 @@
       window = {
         border = 2;
         titlebar = false;
-        commands = [ ];
+        commands = [
+          {
+            command = "floating enable";
+            criteria = {
+              app_id = "vesktop";
+            };
+          }
+          {
+            command = "floating enable";
+            criteria = {
+              class = "vesktop";
+            };
+          }
+          {
+            command = "floating enable";
+            criteria = {
+              app_id = "spotify";
+            };
+          }
+          {
+            command = "floating enable";
+            criteria = {
+              class = "steam";
+            };
+          }
+          {
+            command = "floating enable";
+            criteria = {
+              app_id = "org.gnome.Calendar";
+            };
+          }
+          {
+            command = "floating enable";
+            criteria = {
+              app_id = "org.pulseaudio.pavucontrol";
+            };
+          }
+          {
+            command = "floating enable";
+            criteria = {
+              app_id = "org.gnome.Nautilus";
+            };
+          }
+          {
+            command = "floating enable";
+            criteria = {
+              app_id = "dev.alextren.Spot";
+            };
+          }
+          {
+            command = "floating enable";
+            criteria = {
+              app_id = "lazap";
+            };
+          }
+          {
+            command = "floating enable";
+            criteria = {
+              class = "lazap";
+            };
+          }
+          {
+            command = "floating enable";
+            criteria = {
+              app_id = "me.kavishdevar.librepods";
+            };
+          }
+          {
+            command = "floating enable";
+            criteria = {
+              app_id = "io.github.nokse22.high-tide";
+            };
+          }
+          {
+            command = "floating enable";
+            criteria = {
+              class = "tidal-hifi";
+            };
+          }
+        ];
       };
       keybindings = lib.mkOptionDefault {
         "${modifier}+space" = "exec ${ipc} launcher toggle";

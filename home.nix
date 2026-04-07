@@ -1,4 +1,4 @@
-{ nvim-config }:
+{ noctalia, nvim-config }:
 {
   config,
   pkgs,
@@ -15,6 +15,13 @@
     adw-gtk3
 
     packet
+    spotify
+    vesktop
+    protonplus
+  ];
+
+  imports = [
+    noctalia.homeModules.default
   ];
 
   home.pointerCursor = {
@@ -39,7 +46,17 @@
     };
   };
 
+  programs.noctalia-shell = import ./home/noctalia.nix;
   wayland.windowManager.sway = import ./home/sway.nix { inherit pkgs lib; };
+
+  services.udiskie = {
+    enable = true;
+    settings = {
+      program_options = {
+        file_manager = "${pkgs.nemo-with-extensions}/bin/nemo";
+      };
+    };
+  };
 
   gtk = {
     enable = true;
@@ -50,6 +67,10 @@
     iconTheme = {
       name = "Tela-circle-dark";
       package = pkgs.tela-circle-icon-theme;
+    };
+    font = {
+      name = "Inter Medium";
+      size = 11;
     };
     gtk4.theme = config.gtk.theme;
   };
