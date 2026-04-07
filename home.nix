@@ -1,3 +1,4 @@
+{ nvim-config }:
 {
   config,
   pkgs,
@@ -27,6 +28,17 @@
 
   programs.kitty = import ./home/kitty.nix;
 
+  programs.librewolf = {
+    enable = true;
+    settings = {
+      "identity.fxaccounts.enabled" = true;
+      "privacy.resistFingerprinting" = false;
+      "privacy.clearOnShutdown.history" = false;
+      "privacy.clearOnShutdown.cookies" = false;
+      "network.cookie.lifetimePolicy" = 0;
+    };
+  };
+
   wayland.windowManager.sway = import ./home/sway.nix { inherit pkgs lib; };
 
   gtk = {
@@ -47,7 +59,7 @@
     platformTheme.name = "gtk3";
   };
 
-  xdg.configFile.nvim.source = ./home/nvim;
+  xdg.configFile.nvim.source = nvim-config;
 
   home.stateVersion = "25.11";
 }

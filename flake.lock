@@ -112,6 +112,22 @@
         "type": "github"
       }
     },
+    "nvim-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1775420194,
+        "narHash": "sha256-GwZhVjtKheT7K4R2QeToReg+0JueLBbUBzYGDjnPPOg=",
+        "owner": "p0ryae",
+        "repo": "nvim",
+        "rev": "63a9a9d5513a94d8972dae95b35c522ace826413",
+        "type": "github"
+      },
+      "original": {
+        "owner": "p0ryae",
+        "repo": "nvim",
+        "type": "github"
+      }
+    },
     "pre-commit": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -139,7 +155,8 @@
       "inputs": {
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nvim-config": "nvim-config"
       }
     },
     "rust-overlay": {
