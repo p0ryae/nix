@@ -1,12 +1,11 @@
 {
   enable = true;
-  settings = {
-    font_size = "12.0";
-    font_family = "family=\"JetBrainsMono Nerd Font\"";
-    bold_font = "auto";
-    italic_font = "auto";
-    bold_italic_font = "auto";
+  font = {
+    name = "JetBrainsMono Nerd Font";
+    size = 12.0;
+  };
 
+  settings = {
     window_margin_width = 8;
     confirm_os_window_close = 0;
 

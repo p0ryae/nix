@@ -158,4 +158,8 @@
         };
       };
     };
+  extraConfig = ''
+    for_window [class="^.*"] border pixel 2
+    for_window [app_id="^.*"] border pixel 2
+  '';
 }

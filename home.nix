@@ -1,52 +1,51 @@
-{ noctalia, nvim-config }:
 {
   config,
   pkgs,
   lib,
+  noctalia,
   ...
 }:
 {
-  home.packages = with pkgs; [
-    atool
-    httpie
-
-    tela-circle-icon-theme
-    adwaita-icon-theme
-    adw-gtk3
-
-    packet
-    spotify
-    vesktop
-    protonplus
-  ];
-
   imports = [
     noctalia.homeModules.default
   ];
 
-  home.pointerCursor = {
-    name = "Adwaita";
-    package = pkgs.adwaita-icon-theme;
-    size = 24;
-    gtk.enable = true;
-  };
+  home = {
+    stateVersion = "25.11";
 
-  programs.fish.enable = true;
+    packages = with pkgs; [
+      atool
+      httpie
 
-  programs.kitty = import ./home/kitty.nix;
+      tela-circle-icon-theme
+      adwaita-icon-theme
+      adw-gtk3
 
-  programs.librewolf = {
-    enable = true;
-    settings = {
-      "identity.fxaccounts.enabled" = true;
-      "privacy.resistFingerprinting" = false;
-      "privacy.clearOnShutdown.history" = false;
-      "privacy.clearOnShutdown.cookies" = false;
-      "network.cookie.lifetimePolicy" = 0;
+      packet
+      spotify
+      vesktop
+      protonplus
+      llama-cpp-vulkan
+    ];
+
+    pointerCursor = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+      size = 24;
+      gtk.enable = true;
     };
   };
 
-  programs.noctalia-shell = import ./home/noctalia.nix;
+  programs = {
+    fish.enable = true;
+
+    kitty = import ./home/kitty.nix;
+    librewolf = import ./home/librewolf.nix;
+    tmux = import ./home/tmux.nix;
+    mangohud = import ./home/mangohud.nix;
+    noctalia-shell = import ./home/noctalia.nix;
+  };
+
   wayland.windowManager.sway = import ./home/sway.nix { inherit pkgs lib; };
 
   services.udiskie = {
@@ -60,18 +59,22 @@
 
   gtk = {
     enable = true;
+
     theme = {
       name = "adw-gtk3-dark";
       package = pkgs.adw-gtk3;
     };
+
     iconTheme = {
       name = "Tela-circle-dark";
       package = pkgs.tela-circle-icon-theme;
     };
+
     font = {
       name = "Inter Medium";
       size = 11;
     };
+
     gtk4.theme = config.gtk.theme;
   };
 
@@ -80,7 +83,14 @@
     platformTheme.name = "gtk3";
   };
 
-  xdg.configFile.nvim.source = nvim-config;
+  xdg = {
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "inode/directory" = "nautilus.desktop";
+      };
+    };
 
-  home.stateVersion = "25.11";
+    # configFile.nvim.source = nvim-config;
+  };
 }

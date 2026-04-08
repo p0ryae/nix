@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nix-gaming.url = "github:fufexan/nix-gaming";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -29,6 +30,7 @@
     {
       # self,
       nixpkgs,
+      nix-gaming,
       home-manager,
       lanzaboote,
       nvim-config,
@@ -44,6 +46,11 @@
           ...
         }:
         {
+          imports = [
+            nix-gaming.nixosModules.platformOptimizations
+            nix-gaming.nixosModules.pipewireLowLatency
+          ];
+
           nixpkgs.config.allowUnfreePredicate =
             pkg:
             builtins.elem (lib.getName pkg) [
@@ -53,7 +60,16 @@
             ];
 
           networking.networkmanager.enable = true;
-          systemd.services.NetworkManager-wait-online.enable = false;
+          systemd.services = {
+            NetworkManager-wait-online.enable = false;
+            flatpak-repo = {
+              wantedBy = [ "multi-user.target" ];
+              path = [ pkgs.flatpak ];
+              script = ''
+                flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+              '';
+            };
+          };
 
           hardware.bluetooth.enable = true;
 
@@ -80,7 +96,15 @@
 
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.porya = import ./home.nix { inherit nvim-config noctalia; };
+          home-manager = {
+            extraSpecialArgs = {
+              inherit nvim-config noctalia;
+            };
+
+            users = {
+              porya = import ./home.nix;
+            };
+          };
 
           environment.systemPackages = with pkgs; [
             git
@@ -102,6 +126,7 @@
             colord
             grim
             slurp
+            wl-clipboard
             sway-contrib.grimshot
 
             kitty
@@ -110,7 +135,9 @@
             docker
 
             nixd
+            nixfmt
             nodejs
+            typescript-go
             go
             gopls
             gcc
@@ -137,7 +164,15 @@
             };
             fish.enable = true;
             sway.enable = true;
-            steam.enable = true;
+            steam = {
+              enable = true;
+              platformOptimizations.enable = true;
+            };
+            gamemode.enable = true;
+            appimage = {
+              enable = true;
+              binfmt = true;
+            };
           };
 
           services = {
@@ -146,18 +181,15 @@
               enable = true;
               alsa.enable = true;
               pulse.enable = true;
+              lowLatency = {
+                enable = true;
+                quantum = 64;
+                rate = 48000;
+              };
             };
             udisks2.enable = true;
             gvfs.enable = true;
             flatpak.enable = true;
-          };
-
-          systemd.services.flatpak-repo = {
-            wantedBy = [ "multi-user.target" ];
-            path = [ pkgs.flatpak ];
-            script = ''
-              flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-            '';
           };
 
           xdg = {
@@ -168,14 +200,22 @@
           };
 
           virtualisation.docker.enable = true;
+          # make pipewire realtime-capable
           security.rtkit.enable = true;
           system.stateVersion = "25.11";
 
-          nix.settings = {
-            extra-substituters = [ "https://noctalia.cachix.org" ];
-            extra-trusted-public-keys = [
-              "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-            ];
+          nix = {
+            settings = {
+              auto-optimise-store = true;
+              experimental-features = [
+                "nix-command"
+                "flakes"
+              ];
+              extra-substituters = [ "https://noctalia.cachix.org" ];
+              extra-trusted-public-keys = [
+                "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+              ];
+            };
           };
         };
 

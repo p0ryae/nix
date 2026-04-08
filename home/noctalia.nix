@@ -33,9 +33,6 @@
             id = "Launcher";
           }
           {
-            id = "Clock";
-          }
-          {
             id = "SystemMonitor";
           }
           {
@@ -67,7 +64,33 @@
             id = "Brightness";
           }
           {
+            colorizeSystemIcon = "none";
+            customIconPath = "";
+            enableColorization = false;
+            icon = "adjustments";
             id = "ControlCenter";
+            useDistroLogo = false;
+          }
+          {
+            clockColor = "none";
+            customFont = "";
+            formatHorizontal = "ddd MMM d  h:mm AP";
+            formatVertical = "HH mm - dd MM";
+            id = "Clock";
+            tooltipFormat = "HH:mm ddd, MMM dd";
+            useCustomFont = false;
+          }
+          {
+            defaultSettings = {
+              activeColor = "primary";
+              enableToast = true;
+              hideInactive = false;
+              iconSpacing = 4;
+              inactiveColor = "none";
+              micFilterRegex = "";
+              removeMargins = false;
+            };
+            id = "plugin:privacy-indicator";
           }
         ];
       };
@@ -498,7 +521,7 @@
     brightness = {
       brightnessStep = 5;
       enforceMinimum = true;
-      enableDdcSupport = false;
+      enableDdcSupport = true;
       backlightDeviceMappings = [ ];
     };
     colorSchemes = {
