@@ -190,6 +190,7 @@
             udisks2.enable = true;
             gvfs.enable = true;
             flatpak.enable = true;
+            lact.enable = true;
           };
 
           xdg = {
@@ -224,6 +225,7 @@
         {
           boot = {
             kernelPackages = lib.mkDefault (import nixpkgs { system = "x86_64-linux"; }).linuxPackages_latest;
+            kernelParams = [ "amdgpu.ppfeaturemask=0xffffffff" ];
             loader.systemd-boot.enable = lib.mkForce false;
             loader.efi.canTouchEfiVariables = true;
             bootspec.enable = true;

@@ -37,9 +37,9 @@
 
     file."firefox-gnome-theme" = {
       target = ".librewolf/default/chrome/firefox-gnome-theme";
-      source = fetchTarball {
-        url = "https://github.com/rafaelmardojai/firefox-gnome-theme/archive/master.tar.gz";
-        sha256 = "1ng5q1mnvg3780x7651yf41mvnw6n1kxhdra9y8kxyx591h2p7zk";
+      source = fetchGit {
+        url = "https://github.com/rafaelmardojai/firefox-gnome-theme.git";
+        rev = "26f0620e3877b7ebe1f7388d33da9e015ddfa5ed";
       };
     };
   };
