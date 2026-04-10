@@ -11,4 +11,7 @@
     dhcpcd.enable = false;
     networkmanager.dns = "none";
   };
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 10;
+  };
 }

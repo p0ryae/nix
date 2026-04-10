@@ -1,4 +1,5 @@
 {
+  self,
   config,
   pkgs,
   lib,
@@ -43,7 +44,7 @@
           rev = "26f0620e3877b7ebe1f7388d33da9e015ddfa5ed";
         };
       };
-      ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/nix/nvim";
+      ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${self}/nvim";
     };
   };
 
@@ -60,33 +61,43 @@
 
   wayland.windowManager.sway = import ./home/sway.nix { inherit pkgs lib; };
 
-  services.udiskie = {
-    enable = true;
-    settings = {
-      program_options = {
-        file_manager = "${pkgs.nemo-with-extensions}/bin/nemo";
+  services = {
+    udiskie = {
+      enable = true;
+      settings = {
+        program_options = {
+          file_manager = "${pkgs.nemo-with-extensions}/bin/nemo";
+        };
       };
     };
+
+    swayidle = import ./home/swayidle.nix { inherit pkgs; };
   };
 
   gtk = {
     enable = true;
-
     theme = {
       name = "adw-gtk3-dark";
       package = pkgs.adw-gtk3;
     };
-
     iconTheme = {
       name = "Tela-circle-dark";
       package = pkgs.tela-circle-icon-theme;
     };
-
     font = {
       name = "Inter Medium";
       size = 11;
     };
-
+    gtk3.extraCss = ''
+      window {
+        border-radius: 0;
+      }
+    '';
+    gtk4.extraCss = ''
+      window {
+        border-radius: 0;
+      }
+    '';
     gtk4.theme = config.gtk.theme;
   };
 

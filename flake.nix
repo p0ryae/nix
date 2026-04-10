@@ -2,6 +2,8 @@
   description = "p0ryae's nixos flake";
 
   inputs = {
+    self.submodules = true;
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-gaming.url = "github:fufexan/nix-gaming";
 
@@ -23,14 +25,13 @@
 
   outputs =
     inputs@{
-      # self,
+      self,
       nixpkgs,
       ...
     }:
     let
       commonModule =
         {
-          # config,
           pkgs,
           lib,
           ...
@@ -50,15 +51,28 @@
             ];
 
           networking.networkmanager.enable = true;
-          systemd.services = {
-            NetworkManager-wait-online.enable = false;
-            flatpak-repo = {
-              wantedBy = [ "multi-user.target" ];
-              path = [ pkgs.flatpak ];
-              script = ''
-                flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-              '';
+          systemd = {
+            oomd = {
+              enable = true;
+              enableRootSlice = true;
+              enableUserSlices = true;
             };
+            services = {
+              NetworkManager-wait-online.enable = false;
+              flatpak-repo = {
+                wantedBy = [ "multi-user.target" ];
+                path = [ pkgs.flatpak ];
+                script = ''
+                  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+                '';
+              };
+            };
+          };
+
+          zramSwap = {
+            enable = true;
+            algorithm = "zstd";
+            memoryPercent = 25;
           };
 
           hardware.bluetooth.enable = true;
@@ -66,11 +80,6 @@
           time.timeZone = "America/Vancouver";
 
           i18n.defaultLocale = "en_CA.UTF-8";
-
-          services.xserver.xkb = {
-            layout = "us";
-            variant = "";
-          };
 
           users.users.porya = {
             isNormalUser = true;
@@ -84,11 +93,12 @@
             packages = [ ];
           };
 
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
           home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+
             extraSpecialArgs = {
-              inherit inputs;
+              inherit inputs self;
             };
 
             users = {
@@ -162,6 +172,10 @@
           };
 
           services = {
+            xserver.xkb = {
+              layout = "us";
+              variant = "";
+            };
             displayManager.ly.enable = true;
             pipewire = {
               enable = true;

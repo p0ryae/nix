@@ -45,13 +45,13 @@
     ];
   };
 
-  boot.initrd.luks.devices."luks-c54a9405-80b3-4177-a43d-1a3c87c07aec" = lib.mkForce {
-    device = "/dev/disk/by-uuid/c54a9405-80b3-4177-a43d-1a3c87c07aec";
-    crypttabExtraOpts = [
-      "tpm2-device=auto"
-      "tpm2-pcrs=7"
-    ];
-  };
+  # boot.initrd.luks.devices."luks-c54a9405-80b3-4177-a43d-1a3c87c07aec" = lib.mkForce {
+  #   device = "/dev/disk/by-uuid/c54a9405-80b3-4177-a43d-1a3c87c07aec";
+  #   crypttabExtraOpts = [
+  #     "tpm2-device=auto"
+  #     "tpm2-pcrs=7"
+  #   ];
+  # };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/4C0F-139A";
@@ -63,7 +63,7 @@
   };
 
   swapDevices = [
-    { device = "/dev/mapper/luks-c54a9405-80b3-4177-a43d-1a3c87c07aec"; }
+    # { device = "/dev/mapper/luks-c54a9405-80b3-4177-a43d-1a3c87c07aec"; }
   ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
