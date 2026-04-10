@@ -11,6 +11,7 @@
   profiles.default = {
     name = "Default";
     search = {
+      force = true;
       default = "g-us";
       privateDefault = "g-us";
 

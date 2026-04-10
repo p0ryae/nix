@@ -2,12 +2,12 @@
   config,
   pkgs,
   lib,
-  noctalia,
+  inputs,
   ...
 }:
 {
   imports = [
-    noctalia.homeModules.default
+    inputs.noctalia.homeModules.default
   ];
 
   home = {
@@ -35,12 +35,15 @@
       gtk.enable = true;
     };
 
-    file."firefox-gnome-theme" = {
-      target = ".librewolf/default/chrome/firefox-gnome-theme";
-      source = fetchGit {
-        url = "https://github.com/rafaelmardojai/firefox-gnome-theme.git";
-        rev = "26f0620e3877b7ebe1f7388d33da9e015ddfa5ed";
+    file = {
+      "firefox-gnome-theme" = {
+        target = ".librewolf/default/chrome/firefox-gnome-theme";
+        source = fetchGit {
+          url = "https://github.com/rafaelmardojai/firefox-gnome-theme.git";
+          rev = "26f0620e3877b7ebe1f7388d33da9e015ddfa5ed";
+        };
       };
+      ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${inputs.self}/nix/nvim";
     };
   };
 
@@ -52,6 +55,7 @@
     tmux = import ./home/tmux.nix;
     mangohud = import ./home/mangohud.nix;
     noctalia-shell = import ./home/noctalia.nix;
+    neovim = import ./home/nvim.nix { inherit pkgs; };
   };
 
   wayland.windowManager.sway = import ./home/sway.nix { inherit pkgs lib; };
@@ -98,7 +102,5 @@
         "inode/directory" = "nautilus.desktop";
       };
     };
-
-    # configFile.nvim.source = nvim-config;
   };
 }

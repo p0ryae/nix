@@ -19,22 +19,12 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nvim-config = {
-      url = "github:p0ryae/nvim";
-      flake = false;
-    };
   };
 
   outputs =
-    {
+    inputs@{
       # self,
       nixpkgs,
-      nix-gaming,
-      home-manager,
-      lanzaboote,
-      nvim-config,
-      noctalia,
       ...
     }:
     let
@@ -47,8 +37,8 @@
         }:
         {
           imports = [
-            nix-gaming.nixosModules.platformOptimizations
-            nix-gaming.nixosModules.pipewireLowLatency
+            inputs.nix-gaming.nixosModules.platformOptimizations
+            inputs.nix-gaming.nixosModules.pipewireLowLatency
           ];
 
           nixpkgs.config.allowUnfreePredicate =
@@ -98,7 +88,7 @@
           home-manager.useUserPackages = true;
           home-manager = {
             extraSpecialArgs = {
-              inherit nvim-config noctalia;
+              inherit inputs;
             };
 
             users = {
@@ -134,12 +124,8 @@
             opencode
             docker
 
-            nixd
-            nixfmt
             nodejs
-            typescript-go
             go
-            gopls
             gcc
             gnumake
             rustup
@@ -224,7 +210,7 @@
         { lib, ... }:
         {
           boot = {
-            kernelPackages = lib.mkDefault (import nixpkgs { system = "x86_64-linux"; }).linuxPackages_latest;
+            kernelPackages = lib.mkDefault (import nixpkgs { system = "x86_64-linux"; }).linuxPackages_zen;
             kernelParams = [ "amdgpu.ppfeaturemask=0xffffffff" ];
             loader.systemd-boot.enable = lib.mkForce false;
             loader.efi.canTouchEfiVariables = true;
@@ -247,8 +233,8 @@
           inherit system;
           modules = [
             ./hosts/${hostname}/hardware-configuration.nix
-            home-manager.nixosModules.home-manager
-            lanzaboote.nixosModules.lanzaboote
+            inputs.home-manager.nixosModules.home-manager
+            inputs.lanzaboote.nixosModules.lanzaboote
             commonModule
             secureBootModule
             { networking.hostName = hostname; }
