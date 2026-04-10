@@ -5,7 +5,6 @@
     self.submodules = true;
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nix-gaming.url = "github:fufexan/nix-gaming";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -21,6 +20,9 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-gaming.url = "github:fufexan/nix-gaming";
+    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
   };
 
   outputs =
@@ -75,8 +77,6 @@
             memoryPercent = 25;
           };
 
-          hardware.bluetooth.enable = true;
-
           time.timeZone = "America/Vancouver";
 
           i18n.defaultLocale = "en_CA.UTF-8";
@@ -112,6 +112,7 @@
             openssl
             unzip
             lshw
+            lsof
             ripgrep
             fd
             tmux
@@ -160,7 +161,7 @@
             };
             fish.enable = true;
             sway.enable = true;
-            steam = {
+            steam = lib.mkIf pkgs.stdenv.hostPlatform.isx86_64 {
               enable = true;
               platformOptimizations.enable = true;
             };
@@ -212,9 +213,13 @@
                 "nix-command"
                 "flakes"
               ];
-              extra-substituters = [ "https://noctalia.cachix.org" ];
+              extra-substituters = [
+                "https://noctalia.cachix.org"
+                "https://nixos-raspberrypi.cachix.org"
+              ];
               extra-trusted-public-keys = [
                 "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+                "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
               ];
             };
           };
@@ -255,21 +260,56 @@
           ]
           ++ extraModules;
         };
+
+      mkPiHost =
+        {
+          hostname,
+          piModules ? [ ],
+        }:
+        inputs.nixos-raspberrypi.lib.nixosSystem {
+          specialArgs = { inherit inputs self; };
+          modules = [
+            ./hosts/${hostname}/hardware-configuration.nix
+            inputs.home-manager.nixosModules.home-manager
+            commonModule
+            { networking.hostName = hostname; }
+          ]
+          ++ piModules;
+        };
     in
     {
-      nixosConfigurations = builtins.listToAttrs (
-        map
-          (hostname: {
-            name = hostname;
-            value = mkHost {
-              inherit hostname;
-              extraModules = [ ./hosts/${hostname}/extra.nix ];
-            };
-          })
-          [
-            "zenbook"
-            "b550f"
-          ]
-      );
+      nixosConfigurations =
+        builtins.listToAttrs (
+          map
+            (hostname: {
+              name = hostname;
+              value = mkHost {
+                inherit hostname;
+                extraModules = [ ./hosts/${hostname}/extra.nix ];
+              };
+            })
+            [
+              "zenbook"
+              "b550f"
+            ]
+        )
+        // {
+          rpi5 = mkPiHost {
+            hostname = "rpi5";
+            piModules = [
+              (
+                { ... }:
+                {
+                  imports = with inputs.nixos-raspberrypi.nixosModules; [
+                    raspberry-pi-5.base
+                    raspberry-pi-5.page-size-16k
+                    raspberry-pi-5.display-vc4
+                    raspberry-pi-5.bluetooth
+                  ];
+                }
+              )
+            ];
+          };
+        };
     };
 }

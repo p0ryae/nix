@@ -12,7 +12,7 @@
   ];
 
   home = {
-    stateVersion = "25.11";
+    stateVersion = "26.05";
 
     packages = with pkgs; [
       atool
@@ -70,6 +70,7 @@
         };
       };
     };
+    mpris-proxy.enable = true;
 
     swayidle = import ./home/swayidle.nix { inherit pkgs; };
   };
