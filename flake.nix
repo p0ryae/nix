@@ -44,13 +44,18 @@
             inputs.nix-gaming.nixosModules.pipewireLowLatency
           ];
 
-          nixpkgs.config.allowUnfreePredicate =
-            pkg:
-            builtins.elem (lib.getName pkg) [
-              "spotify"
-              "steam"
-              "steam-unwrapped"
-            ];
+          nixpkgs = {
+            config = {
+              allowUnfreePredicate =
+                pkg:
+                builtins.elem (lib.getName pkg) [
+                  "spotify"
+                  "steam"
+                  "steam-unwrapped"
+                ];
+              rocmSupport = true;
+            };
+          };
 
           networking.networkmanager.enable = true;
           systemd = {
@@ -120,7 +125,7 @@
             sbctl
             wiremix
             fastfetch
-            tree-sitter
+            nvd
 
             sway
             autotiling-rs
@@ -132,7 +137,6 @@
 
             kitty
             nautilus
-            opencode
             docker
 
             nodejs
@@ -188,6 +192,7 @@
                 rate = 48000;
               };
             };
+            power-profiles-daemon.enable = true;
             udisks2.enable = true;
             gvfs.enable = true;
             flatpak.enable = true;

@@ -8,13 +8,13 @@
 
     gpu_stats = true;
     gpu_load_change = true;
-    gpu_mhz = true;
-    vram = true;
-
+    gpu_core_clock = true;
     gpu_mem_clock = true;
     gpu_temp = true;
     gpu_power = true;
     gpu_name = true;
+    vram = true;
+
     vulkan_driver = true;
 
     cpu_stats = true;

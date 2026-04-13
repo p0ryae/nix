@@ -26,7 +26,8 @@
       spotify
       vesktop
       protonplus
-      llama-cpp-vulkan
+      llama-cpp
+      opencode
     ];
 
     pointerCursor = {

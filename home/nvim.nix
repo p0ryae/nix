@@ -9,6 +9,7 @@
     nixfmt
     gopls
     svelte-language-server
+    clang-tools
     neocmakelsp
     pyright
   ];
