@@ -27,7 +27,7 @@
       vesktop
       protonplus
       llama-cpp
-      opencode
+      inputs.nanocoder.packages.${system}.default
     ];
 
     pointerCursor = {
