@@ -41,7 +41,9 @@
     sway-contrib.grimshot
     kitty
     nautilus
-    docker
+    loupe
+    clapper
+    lan-mouse
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
