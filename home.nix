@@ -15,9 +15,6 @@
     stateVersion = "26.05";
 
     packages = with pkgs; [
-      atool
-      httpie
-
       tela-circle-icon-theme
       adwaita-icon-theme
       adw-gtk3
@@ -27,7 +24,7 @@
       vesktop
       protonplus
       llama-cpp
-      inputs.nanocoder.packages.${system}.default
+      inputs.nanocoder.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 
     pointerCursor = {

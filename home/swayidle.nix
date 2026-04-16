@@ -1,18 +1,25 @@
 { pkgs, ... }:
+let
+  lock = "${pkgs.swaylock}/bin/swaylock --daemonize -c 000000";
+  display = status: ''${pkgs.sway}/bin/swaymsg "output * power ${status}"'';
+  displayOff = display "off";
+  displayOn = display "on";
+in
 {
   enable = true;
   timeouts = [
     {
       timeout = 300;
-      command = "${pkgs.swaylock}/bin/swaylock -f -c 000000";
+      command = lock;
     }
     {
       timeout = 600;
-      command = ''${pkgs.sway}/bin/swaymsg "output * power off"'';
-      resumeCommand = ''${pkgs.sway}/bin/swaymsg "output * power on"'';
+      command = displayOff;
+      resumeCommand = displayOn;
     }
   ];
   events = {
-    before-sleep = "${pkgs.swaylock}/bin/swaylock -f -c 000000";
+    before-sleep = "${displayOff}; ${lock}";
+    after-resume = displayOn;
   };
 }

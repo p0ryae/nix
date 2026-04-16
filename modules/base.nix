@@ -79,6 +79,8 @@
     btop
     fastfetch
     nvd
+    nixos-anywhere
+
     nodejs
     go
     gcc
