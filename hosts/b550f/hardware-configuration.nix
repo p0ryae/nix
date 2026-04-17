@@ -22,6 +22,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   fileSystems."/" = {
     device = "/dev/mapper/luks-7096d3cf-2452-43c6-9e17-09a083a08bf8";

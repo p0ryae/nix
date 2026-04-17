@@ -1,11 +1,9 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  environment.systemPackages = with pkgs; [
-    ddcutil
-  ];
   networking = {
     nameservers = [
       "192.168.1.81"
+      # "1.1.1.1"
     ];
     networkmanager.dns = "none";
   };

@@ -1,8 +1,6 @@
 {
   pkgs,
   lib,
-  inputs,
-  self,
   ...
 }:
 {
@@ -20,6 +18,24 @@
     networkmanager = {
       enable = true;
       wifi.backend = "iwd";
+      # ensureProfiles.profiles = {
+      #   "home-wifi" = {
+      #     connection = {
+      #       id = "SHAW-2D67";
+      #       type = "wifi";
+      #     };
+      #     wifi = {
+      #       ssid = "MySSID";
+      #       mode = "infrastructure";
+      #     };
+      #     wifi-security = {
+      #       key-mgmt = "wpa-psk";
+      #       psk = "@psk@";
+      #     };
+      #     ipv4.method = "auto";
+      #     ipv6.method = "auto";
+      #   };
+      # };
     };
   };
 
@@ -59,13 +75,6 @@
     packages = [ ];
   };
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    extraSpecialArgs = { inherit inputs self; };
-    users.porya = import ../home.nix;
-  };
-
   environment.systemPackages = with pkgs; [
     git
     wget
@@ -87,6 +96,7 @@
     gnumake
     rustup
     elixir
+    python3
   ];
 
   fonts.packages = with pkgs; [

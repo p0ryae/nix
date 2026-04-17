@@ -30,7 +30,10 @@
     };
   };
 
+  users.users.porya.extraGroups = lib.mkAfter [ "i2c" ];
+
   environment.systemPackages = with pkgs; [
+    ddcutil
     wiremix
     sway
     autotiling-rs
@@ -44,6 +47,7 @@
     loupe
     clapper
     lan-mouse
+    caligula
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
@@ -74,6 +78,7 @@
       };
     };
     power-profiles-daemon.enable = true;
+    upower.enable = true;
     udisks2.enable = true;
     gvfs.enable = true;
     flatpak.enable = true;

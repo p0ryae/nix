@@ -92,12 +92,14 @@
         border-radius: 0;
       }
     '';
-    gtk4.extraCss = ''
-      window {
-        border-radius: 0;
-      }
-    '';
-    gtk4.theme = config.gtk.theme;
+    gtk4 = {
+      extraCss = ''
+        window {
+          border-radius: 0;
+        }
+      '';
+      theme = config.gtk.theme;
+    };
   };
 
   qt = {

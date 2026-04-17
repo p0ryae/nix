@@ -6,12 +6,11 @@
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi";
+    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
 
-    nixos-anywhere.url = "github:nix-community/nixos-anywhere";
     disko = {
       url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixos-raspberrypi/nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     lanzaboote = {
@@ -39,21 +38,34 @@
       ...
     }:
     let
+      mkHomeManager =
+        { homeConfig }:
+        {
+          imports = [ inputs.home-manager.nixosModules.home-manager ];
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = { inherit inputs self; };
+            users.porya = import homeConfig;
+          };
+        };
+
       # builder for standard x86/amd64 machines
       mkHost =
         {
           hostname,
+          homeConfig ? ./home.nix,
           extraModules ? [ ],
         }:
         nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs self; };
           modules = [
             ./hosts/${hostname}/hardware-configuration.nix
-            inputs.home-manager.nixosModules.home-manager
             inputs.lanzaboote.nixosModules.lanzaboote
             ./modules/base.nix
             ./modules/desktop.nix
             ./modules/secure-boot.nix
+            (mkHomeManager { inherit homeConfig; })
             { networking.hostName = hostname; }
           ]
           ++ extraModules;
@@ -63,14 +75,19 @@
       mkPiHost =
         {
           hostname,
+          homeConfig ? ./home-hl.nix,
           piModules ? [ ],
         }:
-        inputs.nixos-raspberrypi.lib.nixosSystemFull {
-          specialArgs = { inherit inputs; };
+        inputs.nixos-raspberrypi.lib.nixosSystem {
+          nixpkgs = inputs.nixpkgs;
+          specialArgs = { inherit inputs self; };
           modules = [
+            inputs.disko.nixosModules.disko
+            ./hosts/${hostname}/disk.nix
             ./hosts/${hostname}/configtxt.nix
             ./modules/base.nix
             ./modules/pi.nix
+            (mkHomeManager { inherit homeConfig; })
             { networking.hostName = hostname; }
           ]
           ++ piModules;
