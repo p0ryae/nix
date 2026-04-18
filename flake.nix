@@ -23,6 +23,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-gaming.url = "github:fufexan/nix-gaming";
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
@@ -60,6 +65,7 @@
         nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs self; };
           modules = [
+            inputs.agenix.nixosModules.default
             ./hosts/${hostname}/hardware-configuration.nix
             inputs.lanzaboote.nixosModules.lanzaboote
             ./modules/base.nix
@@ -82,6 +88,7 @@
           nixpkgs = inputs.nixpkgs;
           specialArgs = { inherit inputs self; };
           modules = [
+            inputs.agenix.nixosModules.default
             inputs.disko.nixosModules.disko
             ./hosts/${hostname}/disk.nix
             ./hosts/${hostname}/configtxt.nix

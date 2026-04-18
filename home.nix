@@ -114,5 +114,13 @@
         "inode/directory" = "nautilus.desktop";
       };
     };
+    terminal-exec = {
+      enable = true;
+      settings = {
+        default = [
+          "kitty.desktop"
+        ];
+      };
+    };
   };
 }

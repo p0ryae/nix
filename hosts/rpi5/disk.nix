@@ -2,17 +2,26 @@
 {
   disko.devices.disk.main = {
     type = "disk";
-    device = "/dev/mmcblk0";
+    device = "/dev/nvme0n1";
     content = {
       type = "gpt";
       partitions = {
         firmware = {
           size = "1G";
-          type = "EF00";
+          type = "0700";
           content = {
             type = "filesystem";
             format = "vfat";
             mountpoint = "/boot/firmware";
+          };
+        };
+        boot = {
+          size = "1G";
+          type = "EF00";
+          content = {
+            type = "filesystem";
+            format = "vfat";
+            mountpoint = "/boot";
           };
         };
         root = {
