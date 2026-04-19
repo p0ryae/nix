@@ -2,6 +2,7 @@
   self,
   pkgs,
   lib,
+  inputs,
   config,
   ...
 }:
@@ -103,6 +104,7 @@
     fastfetch
     nvd
     nixos-anywhere
+    inputs.agenix.packages.${stdenv.hostPlatform.system}.default
 
     nodejs
     go

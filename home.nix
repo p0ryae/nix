@@ -112,6 +112,7 @@
       enable = true;
       defaultApplications = {
         "inode/directory" = "nautilus.desktop";
+        "application/pdf" = "librewolf.desktop";
       };
     };
     terminal-exec = {

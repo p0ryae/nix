@@ -1,5 +1,9 @@
 { ... }:
 {
+  systemd.tmpfiles.rules = [
+    "d /opt/vaultwarden/data 0755 root root -"
+  ];
+
   virtualisation.oci-containers.containers."vaultwarden" = {
     image = "vaultwarden/server:latest";
     ports = [ "4444:80/tcp" ];

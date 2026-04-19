@@ -9,4 +9,12 @@ in
     b550f
     rpi5
   ];
+  "immich.age".publicKeys = [
+    porya
+    rpi5
+  ];
+  "authentik.age".publicKeys = [
+    porya
+    rpi5
+  ];
 }

@@ -1,5 +1,10 @@
 { ... }:
 {
+  systemd.tmpfiles.rules = [
+    "d /opt/adguardhome/conf 0755 root root -"
+    "d /opt/adguardhome/work 0755 root root -"
+  ];
+
   virtualisation.oci-containers.containers."adguardhome" = {
     image = "adguard/adguardhome";
     ports = [
