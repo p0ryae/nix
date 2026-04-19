@@ -12,6 +12,7 @@
     "${self}/docker/vaultwarden.nix"
     "${self}/docker/immich.nix"
     "${self}/docker/authentik.nix"
+    "${self}/docker/baikal.nix"
   ];
 
   networking.networkmanager.ensureProfiles.profiles."home-wifi".ipv4.dns = lib.mkForce "127.0.0.1";
@@ -34,6 +35,9 @@
 
       # immich
       2283
+
+      # baikal
+      8484
     ];
     allowedUDPPorts = [
       # adguardhome
