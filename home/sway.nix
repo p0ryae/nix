@@ -121,6 +121,7 @@
       };
       keybindings = lib.mkOptionDefault {
         "${modifier}+space" = "exec ${ipc} launcher toggle";
+        "${modifier}+v" = "exec ${ipc} launcher clipboard";
         "${modifier}+s" = "exec ${ipc} controlCenter toggle";
         "${modifier}+comma" = "exec ${ipc} settings toggle";
         "--locked XF86AudioRaiseVolume" = "exec ${ipc} volume increase";
