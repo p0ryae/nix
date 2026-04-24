@@ -100,7 +100,6 @@
     ripgrep
     fd
     tmux
-    btop
     fastfetch
     nvd
     nixos-anywhere

@@ -55,6 +55,7 @@
     mangohud = import ./home/mangohud.nix;
     noctalia-shell = import ./home/noctalia.nix;
     neovim = import ./home/nvim.nix { inherit pkgs; };
+    btop = import ./home/btop.nix;
   };
 
   wayland.windowManager.sway = import ./home/sway.nix { inherit pkgs lib; };
