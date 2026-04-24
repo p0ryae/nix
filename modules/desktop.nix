@@ -48,6 +48,7 @@
     clapper
     lan-mouse
     caligula
+    gimp
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
