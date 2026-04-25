@@ -36,15 +36,7 @@
             id = "SystemMonitor";
           }
           {
-            colorizeIcons = true;
-            hideMode = "hidden";
             id = "ActiveWindow";
-            maxWidth = 145;
-            scrollingMode = "hover";
-            showIcon = true;
-            showText = true;
-            textColor = "none";
-            useFixedWidth = false;
           }
           {
             id = "MediaMini";
