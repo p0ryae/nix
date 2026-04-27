@@ -49,6 +49,7 @@
     lan-mouse
     caligula
     gimp
+    easyeffects
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
