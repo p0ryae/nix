@@ -45,11 +45,11 @@
     kitty
     nautilus
     loupe
-    clapper
     lan-mouse
     caligula
     gimp
     easyeffects
+    wootility
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";

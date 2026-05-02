@@ -24,7 +24,7 @@
         };
         arm_freq = {
           enable = true;
-          value = 2900;
+          value = 2850;
         };
         gpu_freq = {
           enable = true;

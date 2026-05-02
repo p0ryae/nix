@@ -71,4 +71,5 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.i2c.enable = true;
   hardware.bluetooth.enable = true;
+  hardware.wooting.enable = true;
 }
