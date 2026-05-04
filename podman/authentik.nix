@@ -8,27 +8,6 @@
     "d /opt/authentik/custom-templates 0755 root root -"
   ];
 
-  systemd.services.create-authentik-network = {
-    description = "Create authentik-net Docker network";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    before = [
-      "docker-authentik_server.service"
-      "docker-authentik_worker.service"
-      "docker-authentik_redis.service"
-      "docker-authentik_postgres.service"
-    ];
-    serviceConfig = {
-      Type = "oneshot";
-      Environment = "PATH=/run/current-system/sw/bin";
-      RemainAfterExit = true;
-    };
-    script = ''
-      docker network inspect authentik-net &>/dev/null \
-        || docker network create authentik-net
-    '';
-  };
-
   virtualisation.oci-containers.containers."authentik_postgres" = {
     image = "docker.io/library/postgres:16-alpine";
     volumes = [
@@ -40,7 +19,6 @@
     };
     environmentFiles = [ config.age.secrets.authentik.path ];
     extraOptions = [
-      "--network=authentik-net"
       "--health-cmd=pg_isready -d authentik -U authentik"
       "--health-start-period=20s"
       "--health-interval=30s"
@@ -49,7 +27,6 @@
     ];
     log-driver = "journald";
   };
-
   virtualisation.oci-containers.containers."authentik_redis" = {
     image = "docker.io/library/redis:alpine";
     cmd = [
@@ -63,7 +40,6 @@
       "authentik-redis:/data"
     ];
     extraOptions = [
-      "--network=authentik-net"
       "--health-cmd=redis-cli ping | grep PONG"
       "--health-start-period=20s"
       "--health-interval=30s"
@@ -72,7 +48,6 @@
     ];
     log-driver = "journald";
   };
-
   virtualisation.oci-containers.containers."authentik_server" = {
     image = "ghcr.io/goauthentik/server:2025.6.4";
     cmd = [ "server" ];
@@ -95,16 +70,14 @@
       "authentik_postgres"
       "authentik_redis"
     ];
-    extraOptions = [ "--network=authentik-net" ];
     log-driver = "journald";
   };
-
   virtualisation.oci-containers.containers."authentik_worker" = {
     image = "ghcr.io/goauthentik/server:2025.6.4";
     cmd = [ "worker" ];
     user = "root";
     volumes = [
-      "/var/run/docker.sock:/var/run/docker.sock"
+      "/var/run/podman/podman.sock:/var/run/docker.sock"
       "/opt/authentik/media:/media"
       "/opt/authentik/certs:/certs"
       "/opt/authentik/custom-templates:/templates"
@@ -121,7 +94,6 @@
       "authentik_redis"
     ];
     extraOptions = [
-      "--network=authentik-net"
       "--ulimit=nofile=10240:10240"
     ];
     log-driver = "journald";

@@ -4,18 +4,26 @@
   config,
   ...
 }:
+let
+  podman = "${self}/podman";
+in
 {
   boot.loader.raspberry-pi.bootloader = "kernel";
+  boot.kernel.sysctl."vm.mmap_rnd_bits" = 28;
 
   imports = [
-    "${self}/docker/adguardhome.nix"
-    "${self}/docker/vaultwarden.nix"
-    "${self}/docker/immich.nix"
-    "${self}/docker/authentik.nix"
-    "${self}/docker/baikal.nix"
+    "${podman}/adguardhome.nix"
+    "${podman}/vaultwarden.nix"
+    "${podman}/immich.nix"
+    "${podman}/authentik.nix"
+    "${podman}/baikal.nix"
   ];
 
-  networking.networkmanager.ensureProfiles.profiles."home-wifi".ipv4.dns = lib.mkForce "127.0.0.1";
+  networking.nameservers = [
+    "127.0.0.1"
+    "1.1.1.1"
+  ];
+  networking.networkmanager.dns = "none";
 
   networking.firewall = {
     allowedTCPPorts = [
@@ -24,11 +32,8 @@
 
       # adguardhome
       53
-      853
       3000
-      5443
       8282
-      8989
 
       # vaultwarden
       4444

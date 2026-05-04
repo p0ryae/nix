@@ -47,7 +47,12 @@
   };
 
   programs = {
-    fish.enable = true;
+    fish = {
+      enable = true;
+      shellAliases = {
+        kssh = "kitten ssh";
+      };
+    };
 
     kitty = import ./home/kitty.nix;
     librewolf = import ./home/librewolf.nix;

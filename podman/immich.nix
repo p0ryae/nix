@@ -7,27 +7,6 @@
     "d /opt/immich/postgres 0755 root root -"
   ];
 
-  systemd.services.create-immich-network = {
-    description = "Create immich-net Docker network";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    before = [
-      "docker-immich_server.service"
-      "docker-immich_machine_learning.service"
-      "docker-immich_redis.service"
-      "docker-immich_postgres.service"
-    ];
-    serviceConfig = {
-      Type = "oneshot";
-      Environment = "PATH=/run/current-system/sw/bin";
-      RemainAfterExit = true;
-    };
-    script = ''
-      docker network inspect immich-net &>/dev/null \
-        || docker network create immich-net
-    '';
-  };
-
   virtualisation.oci-containers.containers."immich_server" = {
     image = "ghcr.io/immich-app/immich-server:release";
     ports = [
@@ -42,33 +21,27 @@
       "immich_redis"
       "immich_postgres"
     ];
-    extraOptions = [ "--network=immich-net" ];
     log-driver = "journald";
   };
-
   virtualisation.oci-containers.containers."immich_machine_learning" = {
     image = "ghcr.io/immich-app/immich-machine-learning:release";
     volumes = [
       "immich-model-cache:/cache"
     ];
     extraOptions = [
-      "--network=immich-net"
       "--health-cmd=redis-cli ping || exit 1"
     ];
     log-driver = "journald";
   };
-
   virtualisation.oci-containers.containers."immich_redis" = {
-    image = "docker.io/redis:6.2-alpine@sha256:148bb5411c184abd288d9aaed139c98123eeb8824c5d3fce03cf721db58066d8";
+    image = "docker.io/valkey/valkey:9@sha256:3b55fbaa0cd93cf0d9d961f405e4dfcc70efe325e2d84da207a0a8e6d8fde4f9";
     extraOptions = [
-      "--network=immich-net"
       "--health-cmd=redis-cli ping || exit 1"
     ];
     log-driver = "journald";
   };
-
   virtualisation.oci-containers.containers."immich_postgres" = {
-    image = "ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0";
+    image = "ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23";
     volumes = [
       "/opt/immich/postgres:/var/lib/postgresql/data:rw"
     ];
@@ -76,7 +49,6 @@
       POSTGRES_INITDB_ARGS = "--data-checksums";
     };
     environmentFiles = [ config.age.secrets.immich.path ];
-    extraOptions = [ "--network=immich-net" ];
     log-driver = "journald";
   };
 }

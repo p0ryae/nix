@@ -85,7 +85,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "docker"
+      "podman"
     ];
     shell = pkgs.fish;
     packages = [ ];
@@ -143,11 +143,13 @@
   };
 
   virtualisation = {
-    docker = {
+    podman = {
       enable = true;
       autoPrune.enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
     };
-    oci-containers.backend = "docker";
+    oci-containers.backend = "podman";
   };
   security.rtkit.enable = true;
   system.stateVersion = "25.11";
@@ -159,12 +161,10 @@
       "flakes"
     ];
     extra-substituters = [
-      "https://nix-community.cachix.org"
       "https://noctalia.cachix.org"
       "https://nixos-raspberrypi.cachix.org"
     ];
     extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
     ];

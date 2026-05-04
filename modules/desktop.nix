@@ -45,6 +45,7 @@
     kitty
     nautilus
     loupe
+    mpv
     lan-mouse
     caligula
     gimp
