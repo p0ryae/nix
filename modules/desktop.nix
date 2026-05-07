@@ -30,7 +30,10 @@
     };
   };
 
-  users.users.porya.extraGroups = lib.mkAfter [ "i2c" ];
+  users.users.porya.extraGroups = lib.mkAfter [
+    "i2c"
+    "adbusers"
+  ];
 
   environment.systemPackages = with pkgs; [
     ddcutil
@@ -51,6 +54,7 @@
     gimp
     easyeffects
     wootility
+    android-tools
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
