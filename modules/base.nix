@@ -14,6 +14,11 @@
       "wootility"
     ];
 
+  boot.kernel.sysctl = {
+    "net.ipv4.tcp_congestion_control" = "bbr";
+    "net.core.default_qdisc" = "fq";
+  };
+
   networking = {
     wireless.enable = false;
 
@@ -66,6 +71,9 @@
     unzip
     lshw
     lsof
+    ethtool
+    nettools
+    tcpdump
     usbutils
     ripgrep
     fd
@@ -75,7 +83,7 @@
     nvd
     nixos-anywhere
     inputs.agenix.packages.${stdenv.hostPlatform.system}.default
-
+    jq
     nodejs
     go
     gcc

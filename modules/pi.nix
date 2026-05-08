@@ -13,6 +13,9 @@ in
     "vm.mmap_rnd_bits" = 28;
     "net.ipv4.ip_forward" = 1;
   };
+  boot.extraModprobeConfig = ''
+    options rtw88_core disable_lps_deep=Y
+  '';
 
   imports = [
     "${podman}/adguardhome.nix"
@@ -174,7 +177,7 @@ in
           band = "5g";
           # RTW8822BU driver does not support ACS (automatic channel selection)
           # via survey data collection, so we must pin the channel manually
-          channel = 36;
+          channel = 149;
           countryCode = "CA";
           wifi4.capabilities = [
             "HT40+"
@@ -183,15 +186,19 @@ in
             "RX-STBC1"
             "LDPC"
           ];
-          wifi5.capabilities = [
-            "SHORT-GI-80"
-            "TX-STBC-2BY1"
-            "RX-STBC-1"
-            "RXLDPC"
-            "SU-BEAMFORMEE"
-            "MU-BEAMFORMEE"
-            "MAX-MPDU-11454"
-          ];
+          wifi5 = {
+            operatingChannelWidth = "80";
+
+            capabilities = [
+              "SHORT-GI-80"
+              "SU-BEAMFORMEE"
+              "RXLDPC"
+              "TX-STBC"
+            ];
+          };
+          settings = {
+            vht_oper_centr_freq_seg0_idx = 155;
+          };
           networks.wlu1 = {
             ssid = "SHAW-2D67-AP";
             authentication = {
