@@ -4,7 +4,7 @@ let
   rpi5 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIWsES0B27Az+zHHH8sanRt+QkHiiTO8CkDUR3IOcmJ3 root@rpi5";
 in
 {
-  "network-manager.age".publicKeys = [
+  "wifi.age".publicKeys = [
     porya
     b550f
     rpi5

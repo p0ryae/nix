@@ -9,7 +9,10 @@ let
 in
 {
   boot.loader.raspberry-pi.bootloader = "kernel";
-  boot.kernel.sysctl."vm.mmap_rnd_bits" = 28;
+  boot.kernel.sysctl = {
+    "vm.mmap_rnd_bits" = 28;
+    "net.ipv4.ip_forward" = 1;
+  };
 
   imports = [
     "${podman}/adguardhome.nix"
@@ -19,36 +22,58 @@ in
     "${podman}/baikal.nix"
   ];
 
-  networking.nameservers = [
-    "127.0.0.1"
-    "1.1.1.1"
-  ];
-  networking.networkmanager.dns = "none";
+  age.secrets."wifi".file = "${self}/secrets/wifi.age";
 
-  networking.firewall = {
-    allowedTCPPorts = [
-      80
-      443
+  environment.etc."resolv.conf".text = ''
+    nameserver 192.168.1.81
+  '';
 
-      # adguardhome
-      53
-      3000
-      8282
+  networking = {
+    wireless.enable = false;
+    networkmanager.enable = lib.mkForce false;
+    resolvconf.enable = false;
+    firewall = {
+      allowedTCPPorts = [
+        80
+        443
 
-      # vaultwarden
-      4444
+        # adguardhome
+        53
+        3000
+        8282
 
-      # immich
-      2283
+        # vaultwarden
+        4444
 
-      # baikal
-      8484
-    ];
-    allowedUDPPorts = [
-      # adguardhome
-      53
-      5443
-      8989
+        # immich
+        2283
+
+        # baikal
+        8484
+      ];
+      allowedUDPPorts = [
+        # adguardhome
+        53
+        5443
+        8989
+      ];
+      interfaces.wlu1 = {
+        allowedUDPPorts = [
+          # DHCP server (for WiFi clients)
+          67
+        ];
+      };
+    };
+    nat = {
+      enable = true;
+      externalInterface = "end0";
+      internalInterfaces = [ "wlu1" ];
+    };
+    interfaces.wlu1.ipv4.addresses = [
+      {
+        address = "192.168.10.1";
+        prefixLength = 24;
+      }
     ];
   };
 
@@ -142,11 +167,64 @@ in
         };
       };
     };
+    hostapd = {
+      enable = true;
+      radios = {
+        wlu1 = {
+          band = "5g";
+          # RTW8822BU driver does not support ACS (automatic channel selection)
+          # via survey data collection, so we must pin the channel manually
+          channel = 36;
+          countryCode = "CA";
+          wifi4.capabilities = [
+            "HT40+"
+            "SHORT-GI-20"
+            "SHORT-GI-40"
+            "RX-STBC1"
+            "LDPC"
+          ];
+          wifi5.capabilities = [
+            "SHORT-GI-80"
+            "TX-STBC-2BY1"
+            "RX-STBC-1"
+            "RXLDPC"
+            "SU-BEAMFORMEE"
+            "MU-BEAMFORMEE"
+            "MAX-MPDU-11454"
+          ];
+          networks.wlu1 = {
+            ssid = "SHAW-2D67-AP";
+            authentication = {
+              mode = "wpa3-sae-transition";
+              saePasswords = [ { passwordFile = config.age.secrets.wifi.path; } ];
+              wpaPasswordFile = config.age.secrets.wifi.path;
+            };
+          };
+        };
+      };
+    };
+    dnsmasq = {
+      enable = true;
+      settings = {
+        interface = "wlu1";
+        bind-interfaces = true;
+        port = 0;
+        dhcp-range = [ "192.168.10.50,192.168.10.200,24h" ];
+        dhcp-option = [
+          "option:router,192.168.10.1"
+          "option:dns-server,192.168.1.81"
+        ];
+      };
+    };
   };
 
   users.users.porya.openssh.authorizedKeys.keys = lib.mkAfter [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAQQt3NnHVW0bFJd427d0/7QxTshKX8T74rGzcG9lKRo porya@b550f"
   ];
+
+  systemd.services.hostapd = {
+    after = [ "network.target" ];
+  };
 
   security = {
     acme = {

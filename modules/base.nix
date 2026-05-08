@@ -1,9 +1,7 @@
 {
-  self,
   pkgs,
   lib,
   inputs,
-  config,
   ...
 }:
 {
@@ -16,42 +14,12 @@
       "wootility"
     ];
 
-  age.secrets.network-manager = {
-    file = "${self}/secrets/network-manager.age";
-    owner = "root";
-    group = "root";
-    mode = "0400";
-  };
-
   networking = {
     wireless.enable = false;
 
     networkmanager = {
       enable = true;
       wifi.backend = "iwd";
-      ensureProfiles = {
-        environmentFiles = [ config.age.secrets.network-manager.path ];
-        profiles."home-wifi" = {
-          connection = {
-            id = "SHAW-2D67";
-            type = "wifi";
-          };
-          wifi = {
-            ssid = "SHAW-2D67";
-            mode = "infrastructure";
-          };
-          wifi-security = {
-            key-mgmt = "wpa-psk";
-            psk = "@psk@";
-          };
-          ipv4 = {
-            method = "auto";
-            dns = "192.168.1.81";
-            ignore-auto-dns = "true";
-          };
-          ipv6.method = "auto";
-        };
-      };
     };
   };
 
@@ -101,6 +69,7 @@
     usbutils
     ripgrep
     fd
+    iw
     tmux
     fastfetch
     nvd
