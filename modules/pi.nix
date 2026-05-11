@@ -13,9 +13,9 @@ in
     "vm.mmap_rnd_bits" = 28;
     "net.ipv4.ip_forward" = 1;
   };
-  boot.extraModprobeConfig = ''
-    options rtw88_core disable_lps_deep=Y
-  '';
+  # boot.extraModprobeConfig = ''
+  #   options rtw88_core disable_lps_deep=Y
+  # '';
 
   imports = [
     "${podman}/adguardhome.nix"
@@ -67,17 +67,17 @@ in
         ];
       };
     };
-    nat = {
-      enable = true;
-      externalInterface = "end0";
-      internalInterfaces = [ "wlu1" ];
-    };
-    interfaces.wlu1.ipv4.addresses = [
-      {
-        address = "192.168.10.1";
-        prefixLength = 24;
-      }
-    ];
+    # nat = {
+    #   enable = true;
+    #   externalInterface = "end0";
+    #   internalInterfaces = [ "wlu1" ];
+    # };
+    # interfaces.wlu1.ipv4.addresses = [
+    #   {
+    #     address = "192.168.10.1";
+    #     prefixLength = 24;
+    #   }
+    # ];
   };
 
   services = {
@@ -170,68 +170,68 @@ in
         };
       };
     };
-    hostapd = {
-      enable = true;
-      radios = {
-        wlu1 = {
-          band = "5g";
-          # RTW8822BU driver does not support ACS (automatic channel selection)
-          # via survey data collection, so we must pin the channel manually
-          channel = 149;
-          countryCode = "CA";
-          wifi4.capabilities = [
-            "HT40+"
-            "SHORT-GI-20"
-            "SHORT-GI-40"
-            "RX-STBC1"
-            "LDPC"
-          ];
-          wifi5 = {
-            operatingChannelWidth = "80";
-
-            capabilities = [
-              "SHORT-GI-80"
-              "SU-BEAMFORMEE"
-              "RXLDPC"
-              "TX-STBC"
-            ];
-          };
-          settings = {
-            vht_oper_centr_freq_seg0_idx = 155;
-          };
-          networks.wlu1 = {
-            ssid = "SHAW-2D67-AP";
-            authentication = {
-              mode = "wpa3-sae-transition";
-              saePasswords = [ { passwordFile = config.age.secrets.wifi.path; } ];
-              wpaPasswordFile = config.age.secrets.wifi.path;
-            };
-          };
-        };
-      };
-    };
-    dnsmasq = {
-      enable = true;
-      settings = {
-        interface = "wlu1";
-        bind-interfaces = true;
-        port = 0;
-        dhcp-range = [ "192.168.10.50,192.168.10.200,24h" ];
-        dhcp-option = [
-          "option:router,192.168.10.1"
-          "option:dns-server,192.168.1.81"
-        ];
-      };
-    };
+    # hostapd = {
+    #   enable = true;
+    #   radios = {
+    #     wlu1 = {
+    #       band = "5g";
+    #       # RTW8822BU driver does not support ACS (automatic channel selection)
+    #       # via survey data collection, so we must pin the channel manually
+    #       channel = 149;
+    #       countryCode = "CA";
+    #       wifi4.capabilities = [
+    #         "HT40+"
+    #         "SHORT-GI-20"
+    #         "SHORT-GI-40"
+    #         "RX-STBC1"
+    #         "LDPC"
+    #       ];
+    #       wifi5 = {
+    #         operatingChannelWidth = "80";
+    #
+    #         capabilities = [
+    #           "SHORT-GI-80"
+    #           "SU-BEAMFORMEE"
+    #           "RXLDPC"
+    #           "TX-STBC"
+    #         ];
+    #       };
+    #       settings = {
+    #         vht_oper_centr_freq_seg0_idx = 155;
+    #       };
+    #       networks.wlu1 = {
+    #         ssid = "SHAW-2D67-AP";
+    #         authentication = {
+    #           mode = "wpa3-sae-transition";
+    #           saePasswords = [ { passwordFile = config.age.secrets.wifi.path; } ];
+    #           wpaPasswordFile = config.age.secrets.wifi.path;
+    #         };
+    #       };
+    #     };
+    #   };
+    # };
+    # dnsmasq = {
+    #   enable = true;
+    #   settings = {
+    #     interface = "wlu1";
+    #     bind-interfaces = true;
+    #     port = 0;
+    #     dhcp-range = [ "192.168.10.50,192.168.10.200,24h" ];
+    #     dhcp-option = [
+    #       "option:router,192.168.10.1"
+    #       "option:dns-server,192.168.1.81"
+    #     ];
+    #   };
+    # };
   };
 
   users.users.porya.openssh.authorizedKeys.keys = lib.mkAfter [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAQQt3NnHVW0bFJd427d0/7QxTshKX8T74rGzcG9lKRo porya@b550f"
   ];
 
-  systemd.services.hostapd = {
-    after = [ "network.target" ];
-  };
+  # systemd.services.hostapd = {
+  #   after = [ "network.target" ];
+  # };
 
   security = {
     acme = {
