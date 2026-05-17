@@ -91,6 +91,7 @@
     rustup
     elixir
     python3
+    yarn-berry
   ];
 
   fonts.packages = with pkgs; [
