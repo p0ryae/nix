@@ -101,6 +101,7 @@
         quantum = 64;
         rate = 48000;
       };
+      package = pkgs.pipewire.override { ldacBtDecodeSupport = true; };
     };
     power-profiles-daemon.enable = true;
     upower.enable = true;
