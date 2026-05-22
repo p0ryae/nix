@@ -33,7 +33,7 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nanocoder.url = "github:nano-collective/nanocoder";
+    # nanocoder.url = "github:nano-collective/nanocoder";
   };
 
   outputs =
