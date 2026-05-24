@@ -94,11 +94,6 @@
     yarn-berry
   ];
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    inter
-  ];
-
   programs = {
     neovim = {
       enable = true;

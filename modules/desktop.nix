@@ -53,6 +53,15 @@
     "adbusers"
   ];
 
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-color-emoji
+    vazir-fonts
+    nerd-fonts.jetbrains-mono
+    inter
+  ];
+
   environment.systemPackages = with pkgs; [
     ddcutil
     wiremix
@@ -73,6 +82,7 @@
     easyeffects
     wootility
     android-tools
+    imhex
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
