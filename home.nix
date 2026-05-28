@@ -66,14 +66,6 @@
   wayland.windowManager.sway = import ./home/sway.nix { inherit pkgs lib; };
 
   services = {
-    udiskie = {
-      enable = true;
-      settings = {
-        program_options = {
-          file_manager = "${pkgs.nemo-with-extensions}/bin/nemo";
-        };
-      };
-    };
     mpris-proxy.enable = true;
 
     swayidle = import ./home/swayidle.nix { inherit pkgs; };
@@ -117,7 +109,7 @@
     mimeApps = {
       enable = true;
       defaultApplications = {
-        "inode/directory" = "nautilus.desktop";
+        "inode/directory" = "org.gnome.Nautilus.desktop";
         "application/pdf" = "librewolf.desktop";
       };
     };
