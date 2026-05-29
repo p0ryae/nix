@@ -120,6 +120,12 @@
               class = "tidal-hifi";
             };
           }
+          {
+            command = "floating enable";
+            criteria = {
+              app_id = "swayimg";
+            };
+          }
         ];
       };
       keybindings = lib.mkOptionDefault {

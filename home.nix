@@ -111,6 +111,13 @@
       defaultApplications = {
         "inode/directory" = "org.gnome.Nautilus.desktop";
         "application/pdf" = "librewolf.desktop";
+        "image/jpeg" = "swayimg.desktop";
+        "image/png" = "swayimg.desktop";
+        "image/gif" = "swayimg.desktop";
+        "image/webp" = "swayimg.desktop";
+        "image/bmp" = "swayimg.desktop";
+        "image/tiff" = "swayimg.desktop";
+        "image/svg+xml" = "swayimg.desktop";
       };
     };
     terminal-exec = {

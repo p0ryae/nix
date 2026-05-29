@@ -76,7 +76,7 @@
     sway-contrib.grimshot
     kitty
     nautilus
-    loupe
+    swayimg
     mpv
     lan-mouse
     caligula
@@ -85,6 +85,7 @@
     wootility
     android-tools
     imhex
+    pdfarranger
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
