@@ -30,6 +30,9 @@
       startup = [
         { command = "autotiling-rs"; }
         { command = "noctalia-shell"; }
+        {
+          command = "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --foreground --components=secrets";
+        }
       ];
       gaps = {
         inner = 5;

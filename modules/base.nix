@@ -11,6 +11,7 @@
       "spotify"
       "steam"
       "steam-unwrapped"
+      "azure-vpn-client-unwrapped"
       "wootility"
     ];
 

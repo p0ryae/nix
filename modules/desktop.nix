@@ -9,6 +9,7 @@
   imports = [
     inputs.nix-gaming.nixosModules.platformOptimizations
     inputs.nix-gaming.nixosModules.pipewireLowLatency
+    ./azure-vpn-client/module.nix
   ];
 
   boot = {
@@ -22,6 +23,7 @@
 
   nixpkgs.overlays = [
     (self: super: {
+      azure-vpn-client-unwrapped = super.callPackage ./azure-vpn-client/azure-vpn-client.nix { };
       yt-dlp = super.yt-dlp.overrideAttrs (oldAttrs: {
         postPatch = ''
           substituteInPlace yt_dlp/version.py \
@@ -89,6 +91,7 @@
 
   programs = {
     sway.enable = true;
+    seahorse.enable = true;
     steam = lib.mkIf pkgs.stdenv.hostPlatform.isx86_64 {
       enable = true;
       platformOptimizations.enable = true;
@@ -98,10 +101,13 @@
       enable = true;
       binfmt = true;
     };
+    openvpn3.enable = true;
+    azure-vpn-client.enable = true;
   };
 
   services = {
     displayManager.ly.enable = true;
+    gnome.gnome-keyring.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
