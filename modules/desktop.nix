@@ -131,6 +131,11 @@
       user = "porya";
       dataDir = "/home/porya";
     };
+    ananicy = {
+      enable = true;
+      package = pkgs.ananicy-cpp;
+      rulesProvider = pkgs.ananicy-rules-cachyos;
+    };
   };
 
   xdg.portal = {
