@@ -13,7 +13,7 @@
   ];
 
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_zen;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_cachyos;
     kernelParams = [ "amdgpu.ppfeaturemask=0xffffffff" ];
   };
 
@@ -98,7 +98,6 @@
       enable = true;
       platformOptimizations.enable = true;
     };
-    gamemode.enable = true;
     appimage = {
       enable = true;
       binfmt = true;
@@ -131,10 +130,9 @@
       user = "porya";
       dataDir = "/home/porya";
     };
-    ananicy = {
+    scx = {
       enable = true;
-      package = pkgs.ananicy-cpp;
-      rulesProvider = pkgs.ananicy-rules-cachyos;
+      scheduler = "scx_lavd";
     };
   };
 
