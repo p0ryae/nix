@@ -23,6 +23,7 @@ in
     "${podman}/immich.nix"
     "${podman}/authentik.nix"
     "${podman}/baikal.nix"
+    "${podman}/syncthing.nix"
   ];
 
   age.secrets."wifi".file = "${self}/secrets/wifi.age";

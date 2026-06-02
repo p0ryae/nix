@@ -1,8 +1,8 @@
 {
   systemd.tmpfiles.rules = [
     "d /opt/syncthing/config 0755 root root -"
-    "d /opt/syncthing/data1  0755 root root -"
-    "d /opt/syncthing/data2  0755 root root -"
+    "d /opt/syncthing/data1  0755 1000 1000 -"
+    "d /opt/syncthing/data2  0755 1000 1000 -"
   ];
 
   virtualisation.oci-containers.containers."syncthing" = {

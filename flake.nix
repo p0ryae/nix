@@ -5,6 +5,7 @@
     self.submodules = true;
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
 
@@ -40,6 +41,7 @@
     inputs@{
       self,
       nixpkgs,
+      chaotic,
       ...
     }:
     let
@@ -65,6 +67,7 @@
         nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs self; };
           modules = [
+            chaotic.nixosModules.default
             inputs.agenix.nixosModules.default
             ./hosts/${hostname}/hardware-configuration.nix
             inputs.lanzaboote.nixosModules.lanzaboote

@@ -86,6 +86,7 @@
     android-tools
     imhex
     pdfarranger
+    mesa_git
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
@@ -125,6 +126,11 @@
     gvfs.enable = true;
     flatpak.enable = true;
     lact.enable = true;
+    syncthing = {
+      enable = true;
+      user = "porya";
+      dataDir = "/home/porya";
+    };
   };
 
   xdg.portal = {
