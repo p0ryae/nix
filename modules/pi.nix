@@ -82,6 +82,14 @@ in
   };
 
   services = {
+    scx = {
+      enable = true;
+      scheduler = "scx_bpfland";
+      extraArgs = [
+        "-s 20000"
+        "-S"
+      ];
+    };
     fail2ban = {
       enable = true;
       maxretry = 5;
