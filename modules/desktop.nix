@@ -9,7 +9,6 @@
   imports = [
     inputs.nix-gaming.nixosModules.platformOptimizations
     inputs.nix-gaming.nixosModules.pipewireLowLatency
-    ./azure-vpn-client/module.nix
   ];
 
   boot = {
@@ -23,7 +22,6 @@
 
   nixpkgs.overlays = [
     (self: super: {
-      azure-vpn-client-unwrapped = super.callPackage ./azure-vpn-client/azure-vpn-client.nix { };
       yt-dlp = super.yt-dlp.overrideAttrs (oldAttrs: {
         postPatch = ''
           substituteInPlace yt_dlp/version.py \
@@ -103,7 +101,6 @@
       binfmt = true;
     };
     openvpn3.enable = true;
-    azure-vpn-client.enable = true;
   };
 
   services = {

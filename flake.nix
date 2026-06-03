@@ -74,6 +74,18 @@
             ./modules/base.nix
             ./modules/desktop.nix
             ./modules/secure-boot.nix
+            ./modules/azure-vpn-client/azure-vpn-client.nix
+            (
+              { ... }:
+              {
+                nixpkgs.overlays = [
+                  (final: prev: {
+                    azure-vpn-client-unwrapped = prev.callPackage ./modules/azure-vpn-client/package.nix { };
+                  })
+                ];
+                programs.azure-vpn-client.enable = true;
+              }
+            )
             (mkHomeManager { inherit homeConfig; })
             { networking.hostName = hostname; }
           ]
