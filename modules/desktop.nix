@@ -85,6 +85,9 @@
     imhex
     pdfarranger
     mesa_git
+    wineWow64Packages.staging
+    wineWow64Packages.waylandFull
+    winetricks
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";

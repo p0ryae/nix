@@ -70,6 +70,7 @@
     wget
     openssl
     unzip
+    p7zip
     lshw
     lsof
     ethtool
