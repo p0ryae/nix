@@ -78,7 +78,7 @@
     mpv
     lan-mouse
     caligula
-    gimp
+    pinta
     easyeffects
     wootility
     android-tools
