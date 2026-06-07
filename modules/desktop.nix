@@ -51,6 +51,7 @@
   users.users.porya.extraGroups = lib.mkAfter [
     "i2c"
     "adbusers"
+    "libvirtd"
   ];
 
   fonts.packages = with pkgs; [
@@ -88,6 +89,7 @@
     wineWow64Packages.staging
     wineWow64Packages.waylandFull
     winetricks
+    dnsmasq
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
@@ -104,6 +106,7 @@
       binfmt = true;
     };
     openvpn3.enable = true;
+    virt-manager.enable = true;
   };
 
   services = {
@@ -143,5 +146,9 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
+  };
+
+  virtualisation = {
+    libvirtd.enable = true;
   };
 }
