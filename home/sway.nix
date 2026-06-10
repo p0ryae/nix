@@ -6,12 +6,12 @@
   config =
     let
       modifier = "Mod4";
-      ipc = "noctalia-shell ipc call";
+      ipc = "noctalia msg";
     in
     {
       modifier = modifier;
       terminal = "kitty";
-      menu = "${ipc} launcher toggle";
+      menu = "${ipc} panel-toggle launcher";
       bars = [ ];
       input = {
         "type:touchpad" = {
@@ -58,6 +58,7 @@
             command = "floating enable";
             criteria = {
               app_id = "spotify";
+              window_role = "spotify";
             };
           }
           {
@@ -129,10 +130,9 @@
         ];
       };
       keybindings = lib.mkOptionDefault {
-        "${modifier}+space" = "exec ${ipc} launcher toggle";
-        "${modifier}+v" = "exec ${ipc} launcher clipboard";
-        "${modifier}+s" = "exec ${ipc} controlCenter toggle";
-        "${modifier}+comma" = "exec ${ipc} settings toggle";
+        "${modifier}+v" = "exec ${ipc} panel-toggle clipboard";
+        "${modifier}+s" = "exec ${ipc} panel-toggle control-center";
+        "${modifier}+comma" = "exec ${ipc} settings-toggle";
         "--locked XF86AudioRaiseVolume" = "exec ${ipc} volume increase";
         "--locked XF86AudioLowerVolume" = "exec ${ipc} volume decrease";
         "--locked XF86AudioMute" = "exec ${ipc} volume muteOutput";
