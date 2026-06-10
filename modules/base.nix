@@ -13,6 +13,8 @@
       "steam-unwrapped"
       "azure-vpn-client-unwrapped"
       "wootility"
+      "affinity-v3"
+      "affinity-extracted-sources"
     ];
 
   boot.kernel.sysctl = {
@@ -134,14 +136,6 @@
     experimental-features = [
       "nix-command"
       "flakes"
-    ];
-    extra-substituters = [
-      "https://noctalia.cachix.org"
-      "https://nixos-raspberrypi.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-      "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
     ];
     trusted-users = [ "@wheel" ];
   };

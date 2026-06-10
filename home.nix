@@ -24,7 +24,6 @@
       vesktop
       protonplus
       llama-cpp
-      # inputs.nanocoder.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 
     pointerCursor = {
@@ -58,7 +57,7 @@
     librewolf = import ./home/librewolf.nix;
     tmux = import ./home/tmux.nix;
     mangohud = import ./home/mangohud.nix;
-    noctalia-shell = import ./home/noctalia.nix;
+    noctalia = import ./home/noctalia.nix;
     neovim = import ./home/nvim.nix { inherit pkgs; };
     btop = import ./home/btop.nix;
   };

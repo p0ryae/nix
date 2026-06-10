@@ -21,6 +21,10 @@
   nixpkgs.config.rocmSupport = true;
 
   nixpkgs.overlays = [
+    inputs.affinity-nix.overlays.default
+    (final: prev: {
+      azure-vpn-client-unwrapped = prev.callPackage ./azure-vpn-client/package.nix { };
+    })
     (self: super: {
       yt-dlp = super.yt-dlp.overrideAttrs (oldAttrs: {
         postPatch = ''
@@ -79,7 +83,7 @@
     mpv
     lan-mouse
     caligula
-    pinta
+    affinity-v3
     easyeffects
     wootility
     android-tools
@@ -107,6 +111,7 @@
     };
     openvpn3.enable = true;
     virt-manager.enable = true;
+    azure-vpn-client.enable = true;
   };
 
   services = {

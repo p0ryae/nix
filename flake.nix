@@ -30,11 +30,21 @@
     };
 
     nix-gaming.url = "github:fufexan/nix-gaming";
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # nanocoder.url = "github:nano-collective/nanocoder";
+    noctalia.url = "github:noctalia-dev/noctalia";
+    affinity-nix.url = "github:mrshmllow/affinity-nix";
+  };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://noctalia.cachix.org"
+      "https://nixos-raspberrypi.cachix.org"
+      "https://cache.garnix.io"
+    ];
+    extra-trusted-public-keys = [
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+    ];
   };
 
   outputs =
@@ -75,17 +85,6 @@
             ./modules/desktop.nix
             ./modules/secure-boot.nix
             ./modules/azure-vpn-client/azure-vpn-client.nix
-            (
-              { ... }:
-              {
-                nixpkgs.overlays = [
-                  (final: prev: {
-                    azure-vpn-client-unwrapped = prev.callPackage ./modules/azure-vpn-client/package.nix { };
-                  })
-                ];
-                programs.azure-vpn-client.enable = true;
-              }
-            )
             (mkHomeManager { inherit homeConfig; })
             { networking.hostName = hostname; }
           ]
