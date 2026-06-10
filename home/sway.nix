@@ -57,7 +57,6 @@
           {
             command = "floating enable";
             criteria = {
-              app_id = "spotify";
               window_role = "spotify";
             };
           }
