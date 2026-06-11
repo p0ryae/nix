@@ -14,18 +14,6 @@
   home = {
     stateVersion = "26.05";
 
-    packages = with pkgs; [
-      tela-circle-icon-theme
-      adwaita-icon-theme
-      adw-gtk3
-
-      packet
-      spotify
-      vesktop
-      protonplus
-      llama-cpp
-    ];
-
     pointerCursor = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;

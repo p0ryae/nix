@@ -1,10 +1,7 @@
 {
   enable = true;
-  systemd.enable = true;
 
   settings = {
-    launch_apps_as_systemd_services = true;
-
     shell = {
       font = "JetBrainsMono Nerd Font";
       settings_show_advanced = true;
@@ -40,7 +37,7 @@
       showCategories = true;
       showIconBackground = false;
       sortByMostUsed = true;
-      terminalCommand = "alacritty -e";
+      terminalCommand = "kitty -e";
       viewMode = "list";
     };
 

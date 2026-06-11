@@ -29,7 +29,7 @@
       };
       startup = [
         { command = "autotiling-rs"; }
-        { command = "noctalia-shell"; }
+        { command = "noctalia"; }
         {
           command = "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --foreground --components=secrets";
         }
@@ -132,6 +132,7 @@
         "${modifier}+v" = "exec ${ipc} panel-toggle clipboard";
         "${modifier}+s" = "exec ${ipc} panel-toggle control-center";
         "${modifier}+comma" = "exec ${ipc} settings-toggle";
+        "${modifier}+Shift+r" = "exec ${ipc} config-reload";
         "--locked XF86AudioRaiseVolume" = "exec ${ipc} volume increase";
         "--locked XF86AudioLowerVolume" = "exec ${ipc} volume decrease";
         "--locked XF86AudioMute" = "exec ${ipc} volume muteOutput";

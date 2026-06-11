@@ -68,8 +68,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    ddcutil
-    wiremix
     sway
     autotiling-rs
     colord
@@ -81,19 +79,30 @@
     nautilus
     swayimg
     mpv
-    lan-mouse
-    caligula
-    affinity-v3
+    spotify
     easyeffects
-    wootility
+    ddcutil
+    wiremix
+    tela-circle-icon-theme
+    adwaita-icon-theme
+    adw-gtk3
+    wineWow64Packages.staging
+    wineWow64Packages.waylandFull
+    winetricks
+    protonplus
+    protontricks
     android-tools
     imhex
     pdfarranger
     mesa_git
-    wineWow64Packages.staging
-    wineWow64Packages.waylandFull
-    winetricks
+    llama-cpp
+    lan-mouse
+    wootility
+    vesktop
+    affinity-v3
+    caligula
     dnsmasq
+    packet
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
