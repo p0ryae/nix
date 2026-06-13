@@ -21,6 +21,7 @@
   nixpkgs.config.rocmSupport = true;
 
   nixpkgs.overlays = [
+    inputs.helium.overlays.default
     inputs.affinity-nix.overlays.default
     (final: prev: {
       azure-vpn-client-unwrapped = prev.callPackage ./azure-vpn-client/package.nix { };
@@ -69,6 +70,7 @@
 
   environment.systemPackages = with pkgs; [
     sway
+    sway-audio-idle-inhibit
     autotiling-rs
     colord
     grim
@@ -77,6 +79,7 @@
     sway-contrib.grimshot
     kitty
     nautilus
+    file-roller
     swayimg
     mpv
     spotify
@@ -103,6 +106,7 @@
     caligula
     dnsmasq
     packet
+    helium
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
@@ -121,6 +125,14 @@
     openvpn3.enable = true;
     virt-manager.enable = true;
     azure-vpn-client.enable = true;
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        obs-pipewire-audio-capture
+        obs-vkcapture
+      ];
+    };
   };
 
   services = {
@@ -159,7 +171,15 @@
 
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
+    wlr = {
+      enable = true;
+      settings = {
+        screencast = {
+          chooser_type = "simple";
+          chooser_cmd = "slurp -f 'Monitor: %o' -or";
+        };
+      };
+    };
   };
 
   virtualisation = {

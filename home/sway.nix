@@ -29,6 +29,7 @@
       };
       startup = [
         { command = "autotiling-rs"; }
+        { command = "${pkgs.sway-audio-idle-inhibit}/bin/sway-audio-idle-inhibit"; }
         { command = "noctalia"; }
         {
           command = "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --foreground --components=secrets";

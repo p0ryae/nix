@@ -15,6 +15,7 @@
       "wootility"
       "affinity-v3"
       "affinity-extracted-sources"
+      "widevine-cdm"
     ];
 
   boot.kernel.sysctl = {
