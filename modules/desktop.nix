@@ -16,32 +16,47 @@
     kernelParams = [ "amdgpu.ppfeaturemask=0xffffffff" ];
   };
 
-  # needed for machine learning, LLMs, and btop
-  # well... "needed" is a strong word, so maybe preferred
-  nixpkgs.config.rocmSupport = true;
-
-  nixpkgs.overlays = [
-    inputs.helium.overlays.default
-    inputs.affinity-nix.overlays.default
-    (final: prev: {
-      azure-vpn-client-unwrapped = prev.callPackage ./azure-vpn-client/package.nix { };
-    })
-    (self: super: {
-      yt-dlp = super.yt-dlp.overrideAttrs (oldAttrs: {
-        postPatch = ''
-          substituteInPlace yt_dlp/version.py \
-            --replace-fail "UPDATE_HINT = None" 'UPDATE_HINT = "Nixpkgs/NixOS likely already contain an updated version.\n       To get it run nix-channel --update or nix flake update in your config directory."'
-          ${lib.optionalString true ''
-            # deno is required for full YouTube support (since 2025.11.12).
-            # This makes yt-dlp find deno even if it is used as a python dependency, i.e. in kodiPackages.sendtokodi.
-            # Crafted so people can replace deno with one of the other JS runtimes.
-            substituteInPlace yt_dlp/utils/_jsruntime.py \
-              --replace-fail "path = _determine_runtime_path(self._path, '${pkgs.nodejs.meta.mainProgram}')" "path = '${lib.getExe pkgs.nodejs}'"
-          ''}
-        '';
-      });
-    })
-  ];
+  nixpkgs = {
+    config = {
+      # needed for machine learning, LLMs, and btop
+      # well... "needed" is a strong word, so maybe preferred
+      rocmSupport = true;
+      allowUnfreePredicate =
+        pkg:
+        builtins.elem (lib.getName pkg) [
+          "spotify"
+          "steam"
+          "steam-unwrapped"
+          "azure-vpn-client-unwrapped"
+          "wootility"
+          "affinity-v3"
+          "affinity-extracted-sources"
+          "widevine-cdm"
+        ];
+    };
+    overlays = [
+      inputs.helium.overlays.default
+      inputs.affinity-nix.overlays.default
+      (final: prev: {
+        azure-vpn-client-unwrapped = prev.callPackage ./azure-vpn-client/package.nix { };
+      })
+      (self: super: {
+        yt-dlp = super.yt-dlp.overrideAttrs (oldAttrs: {
+          postPatch = ''
+            substituteInPlace yt_dlp/version.py \
+              --replace-fail "UPDATE_HINT = None" 'UPDATE_HINT = "Nixpkgs/NixOS likely already contain an updated version.\n       To get it run nix-channel --update or nix flake update in your config directory."'
+            ${lib.optionalString true ''
+              # deno is required for full YouTube support (since 2025.11.12).
+              # This makes yt-dlp find deno even if it is used as a python dependency, i.e. in kodiPackages.sendtokodi.
+              # Crafted so people can replace deno with one of the other JS runtimes.
+              substituteInPlace yt_dlp/utils/_jsruntime.py \
+                --replace-fail "path = _determine_runtime_path(self._path, '${pkgs.nodejs.meta.mainProgram}')" "path = '${lib.getExe pkgs.nodejs}'"
+            ''}
+          '';
+        });
+      })
+    ];
+  };
 
   systemd.services = {
     flatpak-repo = {
@@ -107,6 +122,8 @@
     dnsmasq
     packet
     helium
+    widevine-cdm
+    swtpm
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
@@ -182,7 +199,11 @@
     };
   };
 
-  virtualisation = {
-    libvirtd.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu_kvm;
+      swtpm.enable = true;
+    };
   };
 }

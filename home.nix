@@ -31,6 +31,12 @@
       };
       ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${self}/nvim";
     };
+
+    activation.heliumWidevine = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      mkdir -p "${config.xdg.configHome}/net.imput.helium/WidevineCdm"
+      echo '{"Path":"${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm/"}' \
+        > "${config.xdg.configHome}/net.imput.helium/WidevineCdm/latest-component-updated-widevine-cdm"
+    '';
   };
 
   programs = {
@@ -83,7 +89,7 @@
           border-radius: 0;
         }
       '';
-      theme = config.gtk.theme;
+      # theme = config.gtk.theme;
     };
   };
 

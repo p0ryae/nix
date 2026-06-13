@@ -5,19 +5,6 @@
   ...
 }:
 {
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "spotify"
-      "steam"
-      "steam-unwrapped"
-      "azure-vpn-client-unwrapped"
-      "wootility"
-      "affinity-v3"
-      "affinity-extracted-sources"
-      "widevine-cdm"
-    ];
-
   boot.kernel.sysctl = {
     "net.ipv4.tcp_congestion_control" = "bbr";
     "net.core.default_qdisc" = "fq";
