@@ -3,8 +3,10 @@
 
   settings = {
     shell = {
+      font_family = "JetBrainsMono Nerd Font";
       font = "JetBrainsMono Nerd Font";
       settings_show_advanced = true;
+      corner_radius_scale = 1.5;
     };
 
     theme = {
@@ -16,6 +18,8 @@
     bar.widgets = {
       background_opacity = 0.9;
       capsule = true;
+      padding = 8;
+      radius = 0;
       end = [
         "tray"
         "notifications"
@@ -83,8 +87,6 @@
       };
     };
 
-    shell.font_family = "JetBrainsMono Nerd Font";
-
     wallpaper = {
       directory = "/home/porya/nix/assets";
 
@@ -98,6 +100,7 @@
       control-center.glyph = "adjustments-alt";
       cpu.show_label = false;
       ram.show_label = false;
+      media.hide_when_no_media = true;
       sysmon = {
         show_label = false;
         stat = "ram_used";
@@ -105,6 +108,10 @@
       temp.show_label = false;
       tray.drawer = true;
       workspaces.display = "none";
+    };
+
+    osd.kinds = {
+      media = false;
     };
   };
 }
