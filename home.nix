@@ -22,13 +22,13 @@
     };
 
     file = {
-      "firefox-gnome-theme" = {
-        target = ".librewolf/default/chrome/firefox-gnome-theme";
-        source = fetchGit {
-          url = "https://github.com/rafaelmardojai/firefox-gnome-theme.git";
-          rev = "26f0620e3877b7ebe1f7388d33da9e015ddfa5ed";
-        };
-      };
+      # "firefox-gnome-theme" = {
+      #   target = ".librewolf/default/chrome/firefox-gnome-theme";
+      #   source = fetchGit {
+      #     url = "https://github.com/rafaelmardojai/firefox-gnome-theme.git";
+      #     rev = "26f0620e3877b7ebe1f7388d33da9e015ddfa5ed";
+      #   };
+      # };
       ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${self}/nvim";
     };
 
@@ -48,7 +48,7 @@
     };
 
     kitty = import ./home/kitty.nix;
-    librewolf = import ./home/librewolf.nix;
+    # librewolf = import ./home/librewolf.nix;
     tmux = import ./home/tmux.nix;
     mangohud = import ./home/mangohud.nix;
     noctalia = import ./home/noctalia.nix;
@@ -103,7 +103,7 @@
       enable = true;
       defaultApplications = {
         "inode/directory" = "org.gnome.Nautilus.desktop";
-        "application/pdf" = "librewolf.desktop";
+        "application/pdf" = "helium.desktop";
         "image/jpeg" = "swayimg.desktop";
         "image/png" = "swayimg.desktop";
         "image/gif" = "swayimg.desktop";
