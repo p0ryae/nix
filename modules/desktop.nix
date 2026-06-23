@@ -113,7 +113,7 @@
     imhex
     pdfarranger
     mesa_git
-    llama-cpp
+    llama-cpp-vulkan
     lan-mouse
     wootility
     vesktop
