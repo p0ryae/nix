@@ -24,6 +24,7 @@ in
     "${podman}/authentik.nix"
     "${podman}/baikal.nix"
     "${podman}/syncthing.nix"
+    "${podman}/searxng.nix"
   ];
 
   age.secrets."wifi".file = "${self}/secrets/wifi.age";
