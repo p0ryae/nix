@@ -34,7 +34,6 @@
 
     nix-gaming.url = "github:fufexan/nix-gaming";
     noctalia.url = "github:noctalia-dev/noctalia";
-    affinity-nix.url = "github:mrshmllow/affinity-nix";
     helium = {
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";

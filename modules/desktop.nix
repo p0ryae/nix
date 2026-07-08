@@ -32,14 +32,11 @@
           "steam-unwrapped"
           "azure-vpn-client-unwrapped"
           "wootility"
-          "affinity-v3"
-          "affinity-extracted-sources"
           "widevine-cdm"
         ];
     };
     overlays = [
       inputs.helium.overlays.default
-      inputs.affinity-nix.overlays.default
       (final: prev: {
         azure-vpn-client-unwrapped = prev.callPackage ./azure-vpn-client/package.nix { };
       })
@@ -82,7 +79,7 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
-    vazir-fonts
+    vazirmatn
     nerd-fonts.jetbrains-mono
     inter
   ];
@@ -121,7 +118,6 @@
     lan-mouse
     wootility
     vesktop
-    affinity-v3
     caligula
     dnsmasq
     packet

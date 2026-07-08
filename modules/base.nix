@@ -81,7 +81,7 @@
     gcc
     gnumake
     rustup
-    elixir
+    beamPackages.elixir
     python3
     yarn-berry
   ];
