@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   inputs,
   ...
 }:
@@ -16,6 +15,7 @@
     networkmanager = {
       enable = true;
       wifi.backend = "iwd";
+      plugins = with pkgs; [ networkmanager-openconnect ];
     };
   };
 

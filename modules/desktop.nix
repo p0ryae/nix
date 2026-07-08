@@ -13,7 +13,10 @@
 
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_cachyos;
-    kernelParams = [ "amdgpu.ppfeaturemask=0xffffffff" ];
+    kernelParams = [
+      "amdgpu.ppfeaturemask=0xffffffff"
+      "pcie_acs_override=downstream,multifunction"
+    ];
   };
 
   nixpkgs = {
@@ -72,6 +75,7 @@
     "i2c"
     "adbusers"
     "libvirtd"
+    "kvm"
   ];
 
   fonts.packages = with pkgs; [
@@ -124,6 +128,8 @@
     helium
     widevine-cdm
     swtpm
+    openconnect
+    pciutils
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
@@ -204,6 +210,7 @@
     qemu = {
       package = pkgs.qemu_kvm;
       swtpm.enable = true;
+      runAsRoot = false;
     };
   };
 }
