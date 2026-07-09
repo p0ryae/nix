@@ -17,9 +17,12 @@
     "usbhid"
     "sd_mod"
   ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+  boot.kernelModules = [
+    "kvm-amd"
+    "kvmfr"
+  ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.kvmfr ];
+  boot.kernelParams = [ "kvmfr.static_size_mb=64" ];
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   fileSystems."/mnt/nvme1" = {

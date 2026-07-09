@@ -74,6 +74,7 @@
     "libvirtd"
     "kvm"
   ];
+  users.users.qemu-libvirtd.extraGroups = [ "kvm" ];
 
   fonts.packages = with pkgs; [
     noto-fonts
@@ -126,6 +127,7 @@
     swtpm
     openconnect
     pciutils
+    looking-glass-client
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
@@ -186,6 +188,15 @@
         "-w"
       ];
     };
+    udev.packages = lib.singleton (
+      pkgs.writeTextFile {
+        name = "kvmfr";
+        text = ''
+          SUBSYSTEM=="kvmfr", GROUP="kvm", MODE="0660", TAG+="uaccess"
+        '';
+        destination = "/etc/udev/rules.d/70-kvmfr.rules";
+      }
+    );
   };
 
   xdg.portal = {
@@ -207,6 +218,16 @@
       package = pkgs.qemu_kvm;
       swtpm.enable = true;
       runAsRoot = false;
+      verbatimConfig = ''
+        namespaces = []
+        cgroup_device_acl = [
+          "/dev/null", "/dev/full", "/dev/zero",
+          "/dev/random", "/dev/urandom",
+          "/dev/ptmx", "/dev/kvm", "/dev/kqemu",
+          "/dev/rtc","/dev/hpet", "/dev/vfio/vfio",
+          "/dev/kvmfr0"
+        ]
+      '';
     };
   };
 }
