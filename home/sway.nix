@@ -21,6 +21,11 @@
           drag_lock = "disabled";
         };
       };
+      seat = {
+        "*" = {
+          xcursor_theme = "Adwaita 24";
+        };
+      };
       output = {
         "*" = {
           color_profile = "icc ${pkgs.colord}/share/color/icc/colord/AppleRGB.icc";
