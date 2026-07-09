@@ -10,8 +10,11 @@
     lanzaboote = {
       enable = true;
       pkiBundle = "/var/lib/sbctl";
-      autoGenerateKeys = true;
-      autoEnrollKeys = true;
+      autoGenerateKeys.enable = true;
+      autoEnrollKeys = {
+        enable = true;
+        autoReboot = true;
+      };
     };
     initrd.systemd.enable = true;
   };
