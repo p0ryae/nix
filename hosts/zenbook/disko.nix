@@ -20,20 +20,6 @@
               ];
             };
           };
-          swap = {
-            size = "16G";
-            content = {
-              type = "luks";
-              name = "cryptswap";
-              settings = {
-                allowDiscards = true;
-              };
-              content = {
-                type = "swap";
-                resumeDevice = false;
-              };
-            };
-          };
           root = {
             size = "100%";
             content = {

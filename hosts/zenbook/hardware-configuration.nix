@@ -24,11 +24,6 @@
     "tpm2-pin=yes"
   ];
 
-  boot.initrd.luks.devices."cryptswap".crypttabExtraOpts = [
-    "tpm2-device=auto"
-    "tpm2-pcrs=7"
-  ];
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.bluetooth.enable = true;
