@@ -85,6 +85,8 @@
           modules = [
             chaotic.nixosModules.default
             inputs.agenix.nixosModules.default
+            inputs.disko.nixosModules.disko
+            ./hosts/${hostname}/disko.nix
             ./hosts/${hostname}/hardware-configuration.nix
             inputs.lanzaboote.nixosModules.lanzaboote
             ./modules/base.nix
