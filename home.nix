@@ -66,6 +66,7 @@
 
   gtk = {
     enable = true;
+    colorScheme = "dark";
     theme = {
       name = "adw-gtk3-dark";
       package = pkgs.adw-gtk3;
@@ -78,18 +79,19 @@
       name = "Inter Medium";
       size = 11;
     };
-    gtk3.extraCss = ''
-      window {
-        border-radius: 0;
-      }
-    '';
+    gtk3 = {
+      extraCss = ''
+        window {
+          border-radius: 0;
+        }
+      '';
+    };
     gtk4 = {
       extraCss = ''
         window {
           border-radius: 0;
         }
       '';
-      # theme = config.gtk.theme;
     };
   };
 
