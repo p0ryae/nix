@@ -16,6 +16,7 @@
     kernelPackages = lib.mkDefault pkgs.linuxPackages_cachyos;
     kernelParams = [
       "amdgpu.ppfeaturemask=0xffffffff"
+      "pcie_acs_override=downstream,multifunction"
     ];
   };
 
@@ -162,6 +163,7 @@
       enable = true;
       alsa.enable = true;
       pulse.enable = true;
+      jack.enable = true;
       lowLatency = {
         enable = true;
         quantum = 64;
@@ -235,8 +237,8 @@
     vms = [
       {
         name = "win11";
-        gpuAddress = "0000:0d:00.0";
-        audioAddress = "0000:0d:00.1";
+        gpuAddress = "0000:04:00.0";
+        audioAddress = "0000:04:00.1";
       }
     ];
   };
