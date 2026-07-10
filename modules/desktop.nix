@@ -9,13 +9,13 @@
   imports = [
     inputs.nix-gaming.nixosModules.platformOptimizations
     inputs.nix-gaming.nixosModules.pipewireLowLatency
+    ./virt-hooks.nix
   ];
 
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_cachyos;
     kernelParams = [
       "amdgpu.ppfeaturemask=0xffffffff"
-      "pcie_acs_override=downstream,multifunction"
     ];
   };
 
@@ -74,7 +74,6 @@
     "libvirtd"
     "kvm"
   ];
-  users.users.qemu-libvirtd.extraGroups = [ "kvm" ];
 
   fonts.packages = with pkgs; [
     noto-fonts
@@ -217,7 +216,7 @@
     qemu = {
       package = pkgs.qemu_kvm;
       swtpm.enable = true;
-      runAsRoot = false;
+      runAsRoot = true;
       verbatimConfig = ''
         namespaces = []
         cgroup_device_acl = [
@@ -229,5 +228,16 @@
         ]
       '';
     };
+  };
+
+  custom.virtHooks = {
+    enable = true;
+    vms = [
+      {
+        name = "win11";
+        gpuAddress = "0000:0d:00.0";
+        audioAddress = "0000:0d:00.1";
+      }
+    ];
   };
 }

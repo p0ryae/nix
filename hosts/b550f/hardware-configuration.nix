@@ -16,13 +16,24 @@
     "usb_storage"
     "usbhid"
     "sd_mod"
+    "vfio_pci"
+    "vfio"
+    "vfio_iommu_type1"
   ];
+
   boot.kernelModules = [
     "kvm-amd"
     "kvmfr"
+    "vfio_pci"
+    "vfio"
+    "vfio_iommu_type1"
   ];
   boot.extraModulePackages = [ config.boot.kernelPackages.kvmfr ];
-  boot.kernelParams = [ "kvmfr.static_size_mb=64" ];
+  boot.kernelParams = [
+    "kvmfr.static_size_mb=64"
+    "iommu=pt"
+    "amd_iommu=on"
+  ];
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   fileSystems."/mnt/nvme1" = {
