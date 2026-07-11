@@ -33,6 +33,8 @@
     "kvmfr.static_size_mb=64"
     "iommu=pt"
     "amd_iommu=on"
+    "pcie_aspm=off"
+    "pcie_port_pm=off"
   ];
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
