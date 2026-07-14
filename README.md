@@ -4,10 +4,10 @@ This documents the full reinstall process for hosts in this flake (e.g. `zenbook
 
 ## Prerequisites
 
-It is highly recommended that you clone this repository, and look through everywhere to understand, AND rename to your own username where necessary.
+It is highly recommended that you clone this repository, look through everywhere for understanding, make your own host file, AND rename to your own username where necessary.
 
 - NixOS live ISO (minimal ISO is fine + manual `flakes` & `nix-command` enable )
-- Target host's `hosts/<host>/disko.nix` disk device path verified against the actual machine. You should make your own.
+- Target host's `hosts/<host>/disko.nix` disk device path verified against the actual machine. You **should** make your own.
 - This flake repo, cloned with submodules
 
 ## Boot the live ISO
@@ -51,11 +51,7 @@ sudo nixos-install --flake .#<host>
 
 Accept the inputs if prompted. Stay patient for everything to install. Set the root password when prompted.
 
-Once everything is done, do:
-
-`sudo reboot`
-
-Remove the install media during restart.
+Once everything is done, reboot the system and then remove the install media.
 
 ## First boot
 
@@ -66,12 +62,14 @@ Remove the install media during restart.
 
 ## Second boot
 
-`systemd-boot` enrolls the staged keys into firmware on this boot (`secure-boot-enroll = force` is set automatically). Enter the LUKS passphrase again.
+`systemd-boot` enrolls the staged keys into firmware on this boot. Please wait out the enroll log. Do not press any buttons during it, as instructed (if you read).
+
+Enter the LUKS passphrase again.
 
 Verify:
 
 ```bash
-bootctl status      # should show Secure Boot: enabled (user)
+bootctl status
 sbctl status
 sudo sbctl verify
 ```
@@ -84,7 +82,7 @@ sudo sbctl sign -s /boot/EFI/BOOT/BOOTX64.EFI
 sudo sbctl verify
 ```
 
-## Enable Secure Boot enforcement in BIOS
+## Enable Secure Boot in BIOS
 
 Reboot into UEFI settings, enable Secure Boot, save, reboot again to confirm a clean boot with enforcement active.
 
@@ -92,7 +90,7 @@ Reboot into UEFI settings, enable Secure Boot, save, reboot again to confirm a c
 
 ```bash
 lsblk -f   # confirm actual partition name/number for root
-sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=7 /dev/nvme0n1p2   # nvme0n1p2 is the root disk
+sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=7 /dev/nvme0n1p2   # nvme0n1p2 is the root disk in my case
 ```
 
 Reboot once more to confirm TPM auto-unlock works without a passphrase prompt. You are officially done.
