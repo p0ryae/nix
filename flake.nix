@@ -87,7 +87,7 @@
             inputs.agenix.nixosModules.default
             inputs.disko.nixosModules.disko
             ./hosts/${hostname}/disko.nix
-            ./hosts/${hostname}/hardware-configuration.nix
+            ./hosts/${hostname}/configuration.nix
             inputs.lanzaboote.nixosModules.lanzaboote
             ./modules/base.nix
             ./modules/desktop.nix

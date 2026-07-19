@@ -13,7 +13,7 @@
   ];
 
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_cachyos;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_cachyos-rc;
     kernelParams = [
       "amdgpu.ppfeaturemask=0xffffffff"
       "pcie_acs_override=downstream,multifunction"
@@ -170,6 +170,44 @@
         rate = 48000;
       };
       package = pkgs.pipewire.override { ldacBtDecodeSupport = true; };
+      wireplumber.extraConfig = {
+        "51-dualsense-alsa" = {
+          "monitor.alsa.rules" = [
+            {
+              matches = [
+                {
+                  "device.name" = "~alsa_card.usb-Sony_Interactive_Entertainment_DualSense.*";
+                }
+              ];
+              actions = {
+                "update-props" = {
+                  "api.alsa.use-ucm" = false;
+                  "device.profile-set" = "analog-surround-40.conf";
+                };
+              };
+            }
+            {
+              matches = [
+                {
+                  "node.name" = "~alsa_output.usb-Sony_Interactive_Entertainment_DualSense.*.analog-surround-40";
+                }
+              ];
+              actions = {
+                "update-props" = {
+                  "node.description" = "Wireless Controller";
+                  "node.nick" = "Wireless Controller";
+                  "audio.format" = "S16LE";
+                  "audio.rate" = 48000;
+                  "node.force-rate" = 48000;
+                  "channelmix.disable" = true;
+                  "priority.driver" = 1500;
+                  "priority.session" = 1500;
+                };
+              };
+            }
+          ];
+        };
+      };
     };
     power-profiles-daemon.enable = true;
     upower.enable = true;

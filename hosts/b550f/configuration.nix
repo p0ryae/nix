@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  # pkgs,
   modulesPath,
   ...
 }:
@@ -28,13 +27,17 @@
     "vfio"
     "vfio_iommu_type1"
   ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.kvmfr ];
+  boot.extraModulePackages = [
+    config.boot.kernelPackages.kvmfr
+    (config.boot.kernelPackages.callPackage ./cpuid_fault_emulation/cpuid_fault_emulation.nix { })
+  ];
   boot.kernelParams = [
     "kvmfr.static_size_mb=64"
     "iommu=pt"
     "amd_iommu=on"
     "pcie_aspm=off"
     "pcie_port_pm=off"
+    "clearcpuid=umip"
   ];
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 

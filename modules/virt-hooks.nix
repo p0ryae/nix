@@ -106,7 +106,6 @@ in
     system.activationScripts.libvirtQemuHooks = ''
       mkdir -p /var/lib/libvirt/hooks
       ln -sf ${qemuHookDispatcher} /var/lib/libvirt/hooks/qemu
-      chmod 0755 /var/lib/libvirt/hooks/qemu
       ${concatStringsSep "\n" (map mkVmActivation cfg.vms)}
     '';
   };
