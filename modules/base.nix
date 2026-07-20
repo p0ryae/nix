@@ -119,12 +119,19 @@
   security.rtkit.enable = true;
   system.stateVersion = "25.11";
 
-  nix.settings = {
-    auto-optimise-store = true;
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    trusted-users = [ "@wheel" ];
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      trusted-users = [ "@wheel" ];
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
   };
 }
