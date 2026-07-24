@@ -128,6 +128,15 @@
     openconnect
     pciutils
     looking-glass-client
+    (pkgs.writeShellScriptBin "enable-hv" ''
+      sudo modprobe -r kvm_amd kvm
+      sudo modprobe cpuid_fault_emulation
+    '')
+    (pkgs.writeShellScriptBin "disable-hv" ''
+      sudo modprobe -r cpuid_fault_emulation
+      sudo modprobe kvm_amd kvm
+    '')
+    r2modman
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
@@ -169,7 +178,6 @@
         quantum = 64;
         rate = 48000;
       };
-      package = pkgs.pipewire.override { ldacBtDecodeSupport = true; };
       wireplumber.extraConfig = {
         "51-dualsense-alsa" = {
           "monitor.alsa.rules" = [

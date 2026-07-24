@@ -139,11 +139,11 @@ let
 in
 stdenvNoCC.mkDerivation rec {
   pname = "azure-vpn-client-unwrapped";
-  version = "3.0.0";
+  version = "3.1.0";
 
   src = fetchurl {
     url = "https://packages.microsoft.com/ubuntu/22.04/prod/pool/main/m/microsoft-azurevpnclient/microsoft-azurevpnclient_${version}_amd64.deb";
-    hash = "sha256-nl02BDPR03TZoQUbspplED6BynTr6qNRVdHw6fyUV3s=";
+    hash = "sha256-Y2yCnhvIrvPnGtxscplxvXwJ3qsszbgsbHzkGFs16GE=";
   };
 
   nativeBuildInputs = [
