@@ -10,7 +10,7 @@
     clang-tools
     neocmakelsp
     pyright
-    elixir-ls
+    beamPackages.expert
     jdt-language-server
 
     stylua
@@ -19,8 +19,7 @@
     google-java-format
     sql-formatter
     black
-  ];
-  plugins = with pkgs.vimPlugins; [
-    nvim-treesitter.withAllGrammars
+    luarocks
+    tree-sitter
   ];
 }
