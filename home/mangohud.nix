@@ -1,6 +1,6 @@
 {
   enable = true;
-  enableSessionWide = true;
+  enableSessionWide = false;
   settings = {
     no_display = true;
     font_scale = 0.8;

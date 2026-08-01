@@ -1,4 +1,3 @@
-# NOTE: MADE ONLY FOR AMD GPU DESKTOPS!
 {
   pkgs,
   lib,
@@ -115,6 +114,7 @@
     imhex
     pdfarranger
     mesa_git
+    vulkan-tools
     llama-cpp-vulkan
     lan-mouse
     wootility
