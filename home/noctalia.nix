@@ -4,7 +4,6 @@
   settings = {
     shell = {
       font_family = "JetBrainsMono Nerd Font";
-      font = "JetBrainsMono Nerd Font";
       settings_show_advanced = true;
       corner_radius_scale = 1.5;
     };
@@ -98,16 +97,17 @@
     widget = {
       clock.format = "%a %b %-d %I:%M %p";
       control-center.glyph = "adjustments-alt";
-      cpu.show_label = false;
-      ram.show_label = false;
       media.hide_when_no_media = true;
       sysmon = {
-        show_label = false;
-        stat = "ram_used";
+        show_value = false;
+        show_glyph = true;
       };
       temp.show_label = false;
       tray.drawer = true;
-      workspaces.display = "none";
+      workspaces = {
+        show_labels = false;
+        label_source = "index";
+      };
     };
 
     osd.kinds = {

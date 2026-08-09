@@ -29,7 +29,7 @@
   ];
   boot.extraModulePackages = [
     config.boot.kernelPackages.kvmfr
-    (config.boot.kernelPackages.callPackage ./cpuid_fault_emulation/cpuid_fault_emulation.nix { })
+    (config.boot.kernelPackages.callPackage ./cpuid_fault_emulation { })
   ];
   boot.kernelParams = [
     "kvmfr.static_size_mb=64"

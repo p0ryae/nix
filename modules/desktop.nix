@@ -8,11 +8,12 @@
   imports = [
     inputs.nix-gaming.nixosModules.platformOptimizations
     inputs.nix-gaming.nixosModules.pipewireLowLatency
+    inputs.mesa-git-nix.nixosModules.default
     ./virt-hooks.nix
   ];
 
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_cachyos-rc;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_testing;
     kernelParams = [
       "amdgpu.ppfeaturemask=0xffffffff"
       "pcie_acs_override=downstream,multifunction"
@@ -37,6 +38,7 @@
     };
     overlays = [
       inputs.helium.overlays.default
+      inputs.mesa-git-nix.overlays.default
       (final: prev: {
         azure-vpn-client-unwrapped = prev.callPackage ./azure-vpn-client/package.nix { };
       })
@@ -113,7 +115,6 @@
     android-tools
     imhex
     pdfarranger
-    mesa_git
     vulkan-tools
     llama-cpp-vulkan
     lan-mouse
@@ -138,6 +139,11 @@
     '')
     r2modman
   ];
+
+  mesa-git = {
+    enable = true;
+    drivers = [ "amd" ];
+  };
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
 

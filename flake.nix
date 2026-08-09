@@ -5,7 +5,6 @@
     self.submodules = true;
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     nixos-raspberrypi = {
       url = "github:nvmd/nixos-raspberrypi/nixos-unstable";
@@ -38,18 +37,20 @@
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mesa-git-nix = {
+      url = "github:daaboulex/mesa-git-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
     extra-substituters = [
       "https://noctalia.cachix.org"
       "https://nixos-raspberrypi.cachix.org"
-      "https://nyx-cache.chaotic.cx/"
     ];
     extra-trusted-public-keys = [
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
-      "nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk="
     ];
   };
 
@@ -57,7 +58,6 @@
     inputs@{
       self,
       nixpkgs,
-      chaotic,
       ...
     }:
     let
@@ -83,7 +83,6 @@
         nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs self; };
           modules = [
-            chaotic.nixosModules.default
             inputs.agenix.nixosModules.default
             inputs.disko.nixosModules.disko
             ./hosts/${hostname}/disko.nix
