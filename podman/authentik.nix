@@ -2,13 +2,7 @@
 {
   age.secrets."authentik".file = "${self}/secrets/authentik.age";
 
-  systemd.tmpfiles.rules = [
-    "d /opt/authentik/media            0755 root root -"
-    "d /opt/authentik/certs            0755 root root -"
-    "d /opt/authentik/custom-templates 0755 root root -"
-  ];
-
-  virtualisation.oci-containers.containers."authentik_postgres" = {
+  virtualisation.oci-containers.containers.authentik-postgres = {
     image = "docker.io/library/postgres:16-alpine";
     volumes = [
       "authentik-database:/var/lib/postgresql/data"
@@ -27,7 +21,7 @@
     ];
     log-driver = "journald";
   };
-  virtualisation.oci-containers.containers."authentik_redis" = {
+  virtualisation.oci-containers.containers.authentik-redis = {
     image = "docker.io/library/redis:alpine";
     cmd = [
       "--save"
@@ -48,7 +42,7 @@
     ];
     log-driver = "journald";
   };
-  virtualisation.oci-containers.containers."authentik_server" = {
+  virtualisation.oci-containers.containers.authentik-server = {
     image = "ghcr.io/goauthentik/server:2025.6.4";
     cmd = [ "server" ];
     ports = [
@@ -60,19 +54,19 @@
       "/opt/authentik/custom-templates:/templates"
     ];
     environment = {
-      AUTHENTIK_REDIS__HOST = "authentik_redis";
-      AUTHENTIK_POSTGRESQL__HOST = "authentik_postgres";
+      AUTHENTIK_REDIS__HOST = "authentik-redis";
+      AUTHENTIK_POSTGRESQL__HOST = "authentik-postgres";
       AUTHENTIK_POSTGRESQL__USER = "authentik";
       AUTHENTIK_POSTGRESQL__NAME = "authentik";
     };
     environmentFiles = [ config.age.secrets.authentik.path ];
     dependsOn = [
-      "authentik_postgres"
-      "authentik_redis"
+      "authentik-postgres"
+      "authentik-redis"
     ];
     log-driver = "journald";
   };
-  virtualisation.oci-containers.containers."authentik_worker" = {
+  virtualisation.oci-containers.containers.authentik-worker = {
     image = "ghcr.io/goauthentik/server:2025.6.4";
     cmd = [ "worker" ];
     user = "root";
@@ -84,18 +78,24 @@
     ];
     environment = {
       AUTHENTIK_REDIS__HOST = "authentik_redis";
-      AUTHENTIK_POSTGRESQL__HOST = "authentik_postgres";
+      AUTHENTIK_POSTGRESQL__HOST = "authentik-postgres";
       AUTHENTIK_POSTGRESQL__USER = "authentik";
       AUTHENTIK_POSTGRESQL__NAME = "authentik";
     };
     environmentFiles = [ config.age.secrets.authentik.path ];
     dependsOn = [
-      "authentik_postgres"
-      "authentik_redis"
+      "authentik-postgres"
+      "authentik-redis"
     ];
     extraOptions = [
       "--ulimit=nofile=10240:10240"
     ];
     log-driver = "journald";
   };
+
+  systemd.tmpfiles.rules = [
+    "d /opt/authentik/media            0755 root root -"
+    "d /opt/authentik/certs            0755 root root -"
+    "d /opt/authentik/custom-templates 0755 root root -"
+  ];
 }

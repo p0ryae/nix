@@ -1,12 +1,6 @@
 { pkgs, ... }:
 {
-  systemd.tmpfiles.rules = [
-    "d /opt/searxng/core-config   0755 root root -"
-    "d /opt/searxng/core-data     0755 root root -"
-    "d /opt/searxng/valkey-data   0755 root root -"
-  ];
-
-  systemd.services."podman-network-searxng" = {
+  systemd.services.podman-network-searxng = {
     serviceConfig.Type = "oneshot";
     wantedBy = [ "multi-user.target" ];
     script = ''
@@ -15,7 +9,7 @@
     '';
   };
 
-  virtualisation.oci-containers.containers."searxng-valkey" = {
+  virtualisation.oci-containers.containers.searxng-valkey = {
     image = "docker.io/valkey/valkey:9-alpine";
     cmd = [
       "valkey-server"
@@ -35,7 +29,7 @@
     log-driver = "journald";
   };
 
-  virtualisation.oci-containers.containers."searxng-core" = {
+  virtualisation.oci-containers.containers.searxng-core = {
     image = "docker.io/searxng/searxng:latest";
     ports = [
       "8080:8080/tcp"
@@ -54,4 +48,10 @@
     dependsOn = [ "searxng-valkey" ];
     log-driver = "journald";
   };
+
+  systemd.tmpfiles.rules = [
+    "d /opt/searxng/core-config   0755 root root -"
+    "d /opt/searxng/core-data     0755 root root -"
+    "d /opt/searxng/valkey-data   0755 root root -"
+  ];
 }

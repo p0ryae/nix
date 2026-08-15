@@ -7,6 +7,7 @@
   boot.kernel.sysctl = {
     "net.ipv4.tcp_congestion_control" = "bbr";
     "net.core.default_qdisc" = "fq";
+    "vm.swappiness" = "30";
   };
 
   networking = {
@@ -36,7 +37,7 @@
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    memoryPercent = 25;
+    memoryPercent = 50;
   };
 
   time.timeZone = "America/Vancouver";
@@ -84,6 +85,7 @@
     beamPackages.elixir
     python3
     yarn-berry
+    eza
   ];
 
   programs = {
@@ -127,11 +129,6 @@
         "flakes"
       ];
       trusted-users = [ "@wheel" ];
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
     };
   };
 }

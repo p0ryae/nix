@@ -1,13 +1,6 @@
-{ ... }:
 {
-  systemd.tmpfiles.rules = [
-    "d /opt/adguardhome/conf 0755 root root -"
-    "d /opt/adguardhome/work 0755 root root -"
-  ];
-
-  virtualisation.oci-containers.containers."adguardhome" = {
-    image = "adguard/adguardhome";
-    extraOptions = [ "--network=host" ];
+  virtualisation.oci-containers.containers.adguardhome = {
+    image = "docker.io/adguard/adguardhome:latest";
     # ports = [
     #   "53:53/tcp" # plain DNS over TCP
     #   "53:53/udp" # plain DNS over UDP
@@ -24,5 +17,14 @@
       "/opt/adguardhome/work:/opt/adguardhome/work:rw"
     ];
     log-driver = "journald";
+    extraOptions = [
+      "--network=host"
+      "--label=io.containers.autoupdate=registry"
+    ];
   };
+
+  systemd.tmpfiles.rules = [
+    "d /opt/adguardhome/conf 0755 root root -"
+    "d /opt/adguardhome/work 0755 root root -"
+  ];
 }

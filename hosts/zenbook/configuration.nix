@@ -27,4 +27,12 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.bluetooth.enable = true;
+
+  services.fprintd.enable = true;
+
+  home-manager.sharedModules = [
+    {
+      wayland.windowManager.sway.config.output."*".scale = "1.65";
+    }
+  ];
 }

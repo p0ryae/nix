@@ -39,6 +39,7 @@
     overlays = [
       inputs.helium.overlays.default
       inputs.mesa-git-nix.overlays.default
+      inputs.llama-cpp.overlays.default
       (final: prev: {
         azure-vpn-client-unwrapped = prev.callPackage ./azure-vpn-client/package.nix { };
       })
@@ -59,6 +60,13 @@
       })
     ];
   };
+
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 16 * 1024;
+    }
+  ];
 
   systemd.services = {
     flatpak-repo = {
@@ -116,7 +124,7 @@
     imhex
     pdfarranger
     vulkan-tools
-    llama-cpp-vulkan
+    (pkgs.llamaPackages.llama-cpp.override { useVulkan = true; })
     lan-mouse
     wootility
     vesktop
@@ -138,6 +146,7 @@
       sudo modprobe kvm_amd kvm
     '')
     r2modman
+    mdbook
   ];
 
   mesa-git = {

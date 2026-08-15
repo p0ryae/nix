@@ -7,8 +7,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nixos-raspberrypi = {
-      url = "github:nvmd/nixos-raspberrypi/nixos-unstable";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nvmd/nixos-raspberrypi/develop";
     };
 
     disko = {
@@ -33,6 +32,7 @@
 
     nix-gaming.url = "github:fufexan/nix-gaming";
     noctalia.url = "github:noctalia-dev/noctalia";
+    llama-cpp.url = "github:ggml-org/llama.cpp";
     helium = {
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -106,7 +106,6 @@
           piModules ? [ ],
         }:
         inputs.nixos-raspberrypi.lib.nixosSystem {
-          nixpkgs = inputs.nixpkgs;
           specialArgs = { inherit inputs self; };
           modules = [
             inputs.agenix.nixosModules.default
@@ -127,10 +126,7 @@
           map
             (hostname: {
               name = hostname;
-              value = mkHost {
-                inherit hostname;
-                extraModules = [ ./hosts/${hostname}/extra.nix ];
-              };
+              value = mkHost { inherit hostname; };
             })
             [
               "zenbook"
