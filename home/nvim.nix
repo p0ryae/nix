@@ -21,5 +21,6 @@
     black
     luarocks
     tree-sitter
+    vscode-langservers-extracted
   ];
 }

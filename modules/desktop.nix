@@ -244,10 +244,10 @@
     };
     scx = {
       enable = true;
-      scheduler = "scx_bpfland";
+      scheduler = "scx_lavd";
       extraArgs = [
-        "-m performance"
-        "-w"
+        "--performance"
+        "--pinned-slice-us 500"
       ];
     };
     udev.packages = lib.singleton (

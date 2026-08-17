@@ -7,7 +7,8 @@
   boot.kernel.sysctl = {
     "net.ipv4.tcp_congestion_control" = "bbr";
     "net.core.default_qdisc" = "fq";
-    "vm.swappiness" = "30";
+    "vm.swappiness" = "20";
+    "vm.vfs_cache_pressure" = "50";
   };
 
   networking = {

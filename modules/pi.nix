@@ -85,10 +85,12 @@ in
   services = {
     scx = {
       enable = true;
-      scheduler = "scx_bpfland";
+      scheduler = "scx_lavd";
       extraArgs = [
-        "-s 20000"
-        "-S"
+        "--performance"
+        "--slice-min-us 3000"
+        "--slice-max-us 10000"
+        "--pinned-slice-us 3000"
       ];
     };
     fail2ban = {
