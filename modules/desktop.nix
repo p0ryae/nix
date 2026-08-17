@@ -2,6 +2,7 @@
   pkgs,
   lib,
   inputs,
+  system,
   ...
 }:
 {
@@ -147,6 +148,7 @@
     '')
     r2modman
     mdbook
+    inputs.nanocoder.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   mesa-git = {

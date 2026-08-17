@@ -6,9 +6,9 @@
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nixos-raspberrypi = {
-      url = "github:nvmd/nixos-raspberrypi/develop";
-    };
+    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/develop";
+
+    nanocoder.url = "github:Nano-Collective/nanocoder";
 
     disko = {
       url = "github:nix-community/disko";
