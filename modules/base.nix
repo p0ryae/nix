@@ -4,11 +4,17 @@
   ...
 }:
 {
-  boot.kernel.sysctl = {
-    "net.ipv4.tcp_congestion_control" = "bbr";
-    "net.core.default_qdisc" = "fq";
-    "vm.swappiness" = "20";
-    "vm.vfs_cache_pressure" = "50";
+  boot = {
+    kernel.sysctl = {
+      "net.ipv4.tcp_congestion_control" = "bbr";
+      "net.core.default_qdisc" = "fq";
+      "vm.swappiness" = "20";
+      "vm.vfs_cache_pressure" = "50";
+    };
+    tmp = {
+      useTmpfs = true;
+      cleanOnBoot = true;
+    };
   };
 
   networking = {
@@ -87,6 +93,7 @@
     python3
     yarn-berry
     eza
+    bat
   ];
 
   programs = {
@@ -108,6 +115,7 @@
       layout = "us";
       variant = "";
     };
+    fstrim.enable = true;
   };
 
   virtualisation = {

@@ -2,7 +2,6 @@
   pkgs,
   lib,
   inputs,
-  system,
   ...
 }:
 {
@@ -14,7 +13,7 @@
   ];
 
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_testing;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     kernelParams = [
       "amdgpu.ppfeaturemask=0xffffffff"
       "pcie_acs_override=downstream,multifunction"
