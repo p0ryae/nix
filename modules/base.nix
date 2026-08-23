@@ -94,6 +94,7 @@
     yarn-berry
     eza
     bat
+    pciutils
   ];
 
   programs = {

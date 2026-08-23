@@ -51,6 +51,12 @@
           enable = true;
           value = "3";
         };
+
+        # Disable Energy Efficient Ethernet to stop connection drops
+        eee = {
+          enable = true;
+          value = "off";
+        };
       };
     };
   };

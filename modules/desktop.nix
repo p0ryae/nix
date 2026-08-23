@@ -18,6 +18,11 @@
       "amdgpu.ppfeaturemask=0xffffffff"
       "pcie_acs_override=downstream,multifunction"
     ];
+    kernelModules = [ "bfq" ];
+  };
+
+  hardware.block.scheduler = {
+    "nvme[0-9]*" = "bfq";
   };
 
   nixpkgs = {
@@ -135,7 +140,6 @@
     widevine-cdm
     swtpm
     openconnect
-    pciutils
     looking-glass-client
     (pkgs.writeShellScriptBin "enable-hv" ''
       sudo modprobe -r kvm_amd kvm
@@ -191,8 +195,6 @@
       jack.enable = true;
       lowLatency = {
         enable = true;
-        quantum = 64;
-        rate = 48000;
       };
       wireplumber.extraConfig = {
         "51-dualsense-alsa" = {
