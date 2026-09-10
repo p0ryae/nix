@@ -4,6 +4,7 @@
   withNodeJs = true;
   extraPackages = with pkgs; [
     typescript
+    typescript-language-server
     nixd
     gopls
     svelte-language-server
