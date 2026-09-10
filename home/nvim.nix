@@ -3,14 +3,14 @@
   enable = true;
   withNodeJs = true;
   extraPackages = with pkgs; [
-    typescript-go
+    typescript
     nixd
     gopls
     svelte-language-server
     clang-tools
     neocmakelsp
     pyright
-    beamPackages.expert
+    elixir-ls
     jdt-language-server
 
     stylua

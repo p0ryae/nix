@@ -152,6 +152,7 @@
     r2modman
     mdbook
     inputs.nanocoder.packages.${pkgs.stdenv.hostPlatform.system}.default
+    localsend
   ];
 
   mesa-git = {
