@@ -39,6 +39,8 @@
           "azure-vpn-client-unwrapped"
           "wootility"
           "widevine-cdm"
+          "corefonts"
+          "vista-fonts"
         ];
     };
     overlays = [
@@ -98,6 +100,8 @@
     vazirmatn
     nerd-fonts.jetbrains-mono
     inter
+    corefonts
+    vista-fonts
   ];
 
   environment.systemPackages = with pkgs; [
