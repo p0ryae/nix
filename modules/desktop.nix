@@ -88,6 +88,7 @@
     "adbusers"
     "libvirtd"
     "kvm"
+    "wireshark"
   ];
 
   fonts.packages = with pkgs; [
@@ -153,6 +154,10 @@
     mdbook
     inputs.nanocoder.packages.${pkgs.stdenv.hostPlatform.system}.default
     localsend
+    gnome-calendar
+    libreoffice-stable
+    hunspell
+    hunspellDicts.en_US
   ];
 
   mesa-git = {
@@ -184,11 +189,17 @@
         obs-vkcapture
       ];
     };
+    dconf.enable = true;
+    wireshark.enable = true;
   };
 
   services = {
     displayManager.ly.enable = true;
-    gnome.gnome-keyring.enable = true;
+    gnome = {
+      gnome-keyring.enable = true;
+      gnome-online-accounts.enable = true;
+      evolution-data-server.enable = true;
+    };
     pipewire = {
       enable = true;
       alsa.enable = true;
