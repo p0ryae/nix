@@ -36,7 +36,7 @@
           "spotify"
           "steam"
           "steam-unwrapped"
-          "azure-vpn-client-unwrapped"
+          # "azure-vpn-client-unwrapped"
           "wootility"
           "widevine-cdm"
           "corefonts"
@@ -47,9 +47,9 @@
       inputs.helium.overlays.default
       inputs.mesa-git-nix.overlays.default
       inputs.llama-cpp.overlays.default
-      (final: prev: {
-        azure-vpn-client-unwrapped = prev.callPackage ./azure-vpn-client/package.nix { };
-      })
+      # (final: prev: {
+      #   azure-vpn-client-unwrapped = prev.callPackage ./azure-vpn-client/package.nix { };
+      # })
       (self: super: {
         yt-dlp = super.yt-dlp.overrideAttrs (oldAttrs: {
           postPatch = ''
@@ -158,10 +158,11 @@
     mdbook
     inputs.nanocoder.packages.${pkgs.stdenv.hostPlatform.system}.default
     localsend
-    gnome-calendar
     libreoffice-stable
     hunspell
     hunspellDicts.en_US
+    jdk
+    gdb
   ];
 
   mesa-git = {
@@ -184,7 +185,7 @@
     };
     openvpn3.enable = true;
     virt-manager.enable = true;
-    azure-vpn-client.enable = true;
+    # azure-vpn-client.enable = true;
     obs-studio = {
       enable = true;
       plugins = with pkgs.obs-studio-plugins; [
@@ -193,7 +194,6 @@
         obs-vkcapture
       ];
     };
-    dconf.enable = true;
     wireshark.enable = true;
   };
 
@@ -201,8 +201,6 @@
     displayManager.ly.enable = true;
     gnome = {
       gnome-keyring.enable = true;
-      gnome-online-accounts.enable = true;
-      evolution-data-server.enable = true;
     };
     pipewire = {
       enable = true;
