@@ -10,6 +10,8 @@
 
     nanocoder.url = "github:Nano-Collective/nanocoder";
 
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";

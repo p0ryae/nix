@@ -1,5 +1,6 @@
 {
   self,
+  pkgs,
   lib,
   config,
   ...
@@ -137,6 +138,17 @@ in
       recommendedTlsSettings = true;
 
       virtualHosts = {
+        "porya.me" = {
+          enableACME = true;
+          forceSSL = true;
+
+          root = "/var/lib/portfolio/build";
+
+          locations."/" = {
+            tryFiles = "$uri $uri/ /index.html";
+          };
+        };
+
         "vw.porya.me" = {
           enableACME = true;
           forceSSL = true;
@@ -251,10 +263,38 @@ in
       defaults = {
         email = "contact@porya.me";
       };
+      certs."porya.me".group = config.services.nginx.group;
       certs."vw.porya.me".group = config.services.nginx.group;
       certs."photos.porya.me".group = config.services.nginx.group;
       certs."authentik.porya.me".group = config.services.nginx.group;
     };
     sudo.wheelNeedsPassword = false;
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/portfolio 0755 porya users -"
+  ];
+
+  systemd.services.portfolio = {
+    description = "Build Porya's portfolio";
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      User = "porya";
+      WorkingDirectory = "/var/lib/portfolio";
+    };
+
+    script = ''
+      if [ ! -d .git ]; then
+        ${pkgs.git}/bin/git clone https://github.com/p0ryae/website.git .
+      else
+        ${pkgs.git}/bin/git fetch origin
+        ${pkgs.git}/bin/git reset --hard origin/main
+      fi
+
+      ${pkgs.deno}/bin/deno install
+      ${pkgs.deno}/bin/deno task build
+    '';
   };
 }

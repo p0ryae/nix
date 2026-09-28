@@ -9,6 +9,7 @@
     inputs.nix-gaming.nixosModules.platformOptimizations
     inputs.nix-gaming.nixosModules.pipewireLowLatency
     inputs.mesa-git-nix.nixosModules.default
+    inputs.spicetify-nix.nixosModules.spicetify
     ./virt-hooks.nix
   ];
 
@@ -118,7 +119,6 @@
     file-roller
     swayimg
     mpv
-    spotify
     easyeffects
     ddcutil
     wiremix
@@ -195,6 +195,14 @@
       ];
     };
     wireshark.enable = true;
+    spicetify = {
+      enable = true;
+      enabledExtensions = with inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system}.extensions; [
+        adblockify
+        hidePodcasts
+        shuffle
+      ];
+    };
   };
 
   services = {

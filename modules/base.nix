@@ -84,7 +84,7 @@
     nixos-anywhere
     inputs.agenix.packages.${stdenv.hostPlatform.system}.default
     jq
-    nodejs
+    deno
     go
     gcc
     gnumake
