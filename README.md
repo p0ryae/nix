@@ -14,7 +14,7 @@
 > This means that while the flake itself is pinned, some dependencies may be development versions rather than stable releases. Builds can break, upstream APIs can change, and regressions may occur. This configuration is intended for users who are comfortable troubleshooting NixOS and maintaining their own system configuration.
 
 > [!NOTE]
-> Read through the repository and understand the configuration before installing it. In particular, verify all disk devices, host configuration, boot configuration, and hardware-specific settings before running any destructive commands. I recommend having some previous experience with a linux distrubtion such as Arch, Gentoo, or maybe Fedora beforehand. 
+> Read through the repository and understand the configuration before installing it. In particular, verify all disk devices, host configuration, boot configuration, and hardware-specific settings before running any destructive commands. I recommend having some previous experience with a linux distrubtion such as Arch, Gentoo, or maybe Fedora.
 
 ## First-Time Install Guide (LUKS + TPM + Secure Boot / lanzaboote)
 
