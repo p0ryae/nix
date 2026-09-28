@@ -1,3 +1,21 @@
+> [!WARNING]
+> **This is an opinionated NixOS flake for homelab, development, and gaming systems.**
+>
+> This flake tracks **`nixos-unstable`** rather than a stable NixOS release. It also intentionally uses several packages and inputs directly from upstream Git repositories, including development branches and packages built from source.
+>
+> Examples include:
+>
+> - **llama.cpp**: tracked directly from `ggml-org/llama.cpp`
+> - **Mesa**: tracked through `mesa-git-nix` for newer graphics drivers
+> - **Noctalia**: tracked directly from the Noctalia project
+> - **nix-gaming**: newer gaming packages and optimizations
+> - **nanocoder**: tracked directly from the upstream project
+>
+> This means that while the flake itself is pinned, some dependencies may be development versions rather than stable releases. Builds can break, upstream APIs can change, and regressions may occur. This configuration is intended for users who are comfortable troubleshooting NixOS and maintaining their own system configuration.
+
+> [!NOTE]
+> Read through the repository and understand the configuration before installing it. In particular, verify all disk devices, host configuration, boot configuration, and hardware-specific settings before running any destructive commands. I recommend having some previous experience with a linux distrubtion such as Arch, Gentoo, or maybe Fedora beforehand. 
+
 ## First-Time Install Guide (LUKS + TPM + Secure Boot / lanzaboote)
 
 This documents the full reinstall process for hosts in this flake (e.g. `zenbook`, `b550f`) using `disko` for disk provisioning, LUKS full-disk encryption, TPM2 auto-unlock, and `lanzaboote` for Secure Boot with automatic key generation/enrollment.
