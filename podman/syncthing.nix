@@ -17,7 +17,10 @@
       "/opt/syncthing/data1:/data1:rw"
       "/opt/syncthing/data2:/data2:rw"
     ];
-    extraOptions = [ "--hostname=syncthing" ];
+    extraOptions = [
+      "--hostname=syncthing"
+      "--label=io.containers.autoupdate=registry"
+    ];
     log-driver = "journald";
   };
 

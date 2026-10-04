@@ -91,10 +91,10 @@
     rustup
     beamPackages.elixir
     python3
-    yarn-berry
     eza
     bat
     pciutils
+    nix-graph
   ];
 
   programs = {

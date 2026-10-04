@@ -183,7 +183,7 @@
       enable = true;
       binfmt = true;
     };
-    openvpn3.enable = true;
+    # openvpn3.enable = true;
     virt-manager.enable = true;
     # azure-vpn-client.enable = true;
     obs-studio = {

@@ -1,7 +1,7 @@
 { ... }:
 {
   virtualisation.oci-containers.containers.baikal = {
-    image = "ckulka/baikal:latest";
+    image = "docker.io/ckulka/baikal:latest";
     ports = [
       "8484:80/tcp"
     ];
@@ -9,7 +9,7 @@
       "/opt/baikal/config:/var/www/baikal/config:rw"
       "/opt/baikal/data:/var/www/baikal/Specific:rw"
     ];
-    extraOptions = [ ];
+    extraOptions = [ "--label=io.containers.autoupdate=registry" ];
     log-driver = "journald";
   };
 
