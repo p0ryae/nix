@@ -93,7 +93,7 @@
             ./hosts/${hostname}/configuration.nix
             inputs.lanzaboote.nixosModules.lanzaboote
             ./modules/base.nix
-            ./modules/desktop.nix
+            ./modules/workstation.nix.nix
             ./modules/secure-boot.nix
             ./modules/azure-vpn-client/azure-vpn-client.nix
             (mkHomeManager { inherit homeConfig; })
