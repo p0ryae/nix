@@ -17,4 +17,9 @@ in
     porya
     rpi5
   ];
+
+  "atticd-env.age".publicKeys = [
+    porya
+    rpi5
+  ];
 }

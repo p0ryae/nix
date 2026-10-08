@@ -51,6 +51,11 @@
       # (final: prev: {
       #   azure-vpn-client-unwrapped = prev.callPackage ./azure-vpn-client/package.nix { };
       # })
+      (final: prev: {
+        tela-circle-icon-theme = prev.tela-circle-icon-theme.overrideAttrs {
+          dontCheckForBrokenSymlinks = true;
+        };
+      })
       (self: super: {
         yt-dlp = super.yt-dlp.overrideAttrs (oldAttrs: {
           postPatch = ''
@@ -68,13 +73,6 @@
       })
     ];
   };
-
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 16 * 1024;
-    }
-  ];
 
   systemd.services = {
     flatpak-repo = {
@@ -163,11 +161,15 @@
     hunspellDicts.en_US
     jdk
     gdb
+    attic-client
   ];
 
   mesa-git = {
     enable = true;
-    drivers = [ "amd" ];
+    drivers = [
+      "amd"
+      "intel"
+    ];
   };
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";

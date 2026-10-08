@@ -13,8 +13,8 @@
   };
   programs = {
     fish.enable = true;
-    tmux = import ./home/tmux.nix;
-    neovim = import ./home/nvim.nix { inherit pkgs; };
-    btop = import ./home/btop.nix;
+    tmux = import ./programs/tmux.nix;
+    neovim = import ./programs/nvim.nix { inherit pkgs; };
+    btop = import ./programs/btop.nix;
   };
 }

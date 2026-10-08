@@ -81,7 +81,7 @@
       mkHost =
         {
           hostname,
-          homeConfig ? ./home.nix,
+          homeConfig ? ./home/home.nix,
           extraModules ? [ ],
         }:
         nixpkgs.lib.nixosSystem {
@@ -93,7 +93,7 @@
             ./hosts/${hostname}/configuration.nix
             inputs.lanzaboote.nixosModules.lanzaboote
             ./modules/base.nix
-            ./modules/workstation.nix.nix
+            ./modules/workstation.nix
             ./modules/secure-boot.nix
             ./modules/azure-vpn-client/azure-vpn-client.nix
             (mkHomeManager { inherit homeConfig; })
@@ -106,7 +106,7 @@
       mkPiHost =
         {
           hostname,
-          homeConfig ? ./home-hl.nix,
+          homeConfig ? ./home/home-hl.nix,
           piModules ? [ ],
         }:
         inputs.nixos-raspberrypi.lib.nixosSystem {
@@ -114,7 +114,7 @@
           modules = [
             inputs.agenix.nixosModules.default
             inputs.disko.nixosModules.disko
-            ./hosts/${hostname}/disk.nix
+            ./hosts/${hostname}/disko.nix
             ./hosts/${hostname}/configtxt.nix
             ./modules/base.nix
             ./modules/pi.nix

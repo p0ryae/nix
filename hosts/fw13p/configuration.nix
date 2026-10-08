@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  # pkgs,
   modulesPath,
   ...
 }:
@@ -30,19 +29,19 @@
 
   services.fprintd.enable = true;
 
-  home-manager.sharedModules = [
-    {
-      wayland.windowManager.sway.config.output."*".scale = "1.65";
-    }
-  ];
-
   services.logind.lidSwitch = "suspend-then-hibernate";
   systemd.sleep.extraConfig = "HibernateDelaySec=2h";
 
   swapDevices = [
     {
       device = "/swapfile";
-      size = 16 * 1024;
+      size = 32 * 1024;
     }
   ];
+
+  # home-manager.sharedModules = [
+  #   {
+  #     wayland.windowManager.sway.config.output."*".scale = "1.65";
+  #   }
+  # ];
 }

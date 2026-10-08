@@ -50,21 +50,20 @@
       };
     };
 
-    kitty = import ./home/kitty.nix;
-    # librewolf = import ./home/librewolf.nix;
-    tmux = import ./home/tmux.nix;
-    mangohud = import ./home/mangohud.nix;
-    noctalia = import ./home/noctalia.nix;
-    neovim = import ./home/nvim.nix { inherit pkgs; };
-    btop = import ./home/btop.nix;
+    kitty = import ./programs/kitty.nix;
+    tmux = import ./programs/tmux.nix;
+    mangohud = import ./programs/mangohud.nix;
+    noctalia = import ./programs/noctalia.nix;
+    neovim = import ./programs/nvim.nix { inherit pkgs; };
+    btop = import ./programs/btop.nix;
   };
 
-  wayland.windowManager.sway = import ./home/sway.nix { inherit pkgs lib; };
+  wayland.windowManager.sway = import ./programs/sway.nix { inherit pkgs lib; };
 
   services = {
     mpris-proxy.enable = true;
 
-    swayidle = import ./home/swayidle.nix { inherit pkgs; };
+    swayidle = import ./programs/swayidle.nix { inherit pkgs; };
   };
 
   gtk = {

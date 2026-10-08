@@ -94,7 +94,6 @@
     eza
     bat
     pciutils
-    nix-graph
   ];
 
   programs = {
@@ -139,6 +138,10 @@
         "flakes"
       ];
       trusted-users = [ "@wheel" ];
+
+      extra-substituters = [ "http://192.168.1.81:8080/" ];
+      extra-trusted-public-keys = [ "main:ppyqU5HV7vDItYmeRxs6i0zBE/kIrMwiavsmhJ5Si7M=" ];
+      connect-timeout = 5;
     };
   };
 }
