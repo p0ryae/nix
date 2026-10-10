@@ -104,6 +104,8 @@
       vimAlias = true;
     };
     fish.enable = true;
+    nix-index.enable = true;
+    command-not-found.enable = false;
   };
 
   services = {

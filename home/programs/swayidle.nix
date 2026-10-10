@@ -17,18 +17,9 @@ in
       command = "${pkgs.systemd}/bin/systemctl suspend";
     }
   ];
-  events = [
-    {
-      event = "before-sleep";
-      command = lock;
-    }
-    {
-      event = "after-resume";
-      command = display "on";
-    }
-    {
-      event = "lock";
-      command = lockAndBlank;
-    }
-  ];
+  events = {
+    "before-sleep" = lock;
+    "after-resume" = display "on";
+    "lock" = lockAndBlank;
+  };
 }

@@ -87,6 +87,10 @@ in
     # ];
   };
 
+  environment.systemPackages = with pkgs; [
+    raspberrypi-eeprom
+  ];
+
   services = {
     scx = {
       enable = true;
