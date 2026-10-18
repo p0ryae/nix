@@ -84,8 +84,8 @@
     nixos-anywhere
     inputs.agenix.packages.${stdenv.hostPlatform.system}.default
     jq
-    deno
     go
+    nodejs
     gcc
     gnumake
     rustup
@@ -129,7 +129,6 @@
     };
     oci-containers.backend = "podman";
   };
-  security.rtkit.enable = true;
   system.stateVersion = "25.11";
 
   nix = {

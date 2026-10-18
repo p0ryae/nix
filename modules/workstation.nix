@@ -17,7 +17,7 @@
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     kernelParams = [
       "amdgpu.ppfeaturemask=0xffffffff"
-      "pcie_acs_override=downstream,multifunction"
+      # "pcie_acs_override=downstream,multifunction"
     ];
     kernelModules = [ "bfq" ];
   };
@@ -42,6 +42,7 @@
           "widevine-cdm"
           "corefonts"
           "vista-fonts"
+          "beeper"
         ];
     };
     overlays = [
@@ -134,7 +135,6 @@
     vulkan-tools
     (pkgs.llamaPackages.llama-cpp.override { useVulkan = true; })
     lan-mouse
-    wootility
     vesktop
     caligula
     dnsmasq
@@ -319,6 +319,8 @@
       '';
     };
   };
+
+  security.rtkit.enable = true;
 
   custom.virtHooks = {
     enable = true;
