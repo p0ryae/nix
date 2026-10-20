@@ -16,8 +16,6 @@
 > [!NOTE]
 > Read through the repository and understand the configuration before installing it. In particular, verify all disk devices, host configuration, boot configuration, and hardware-specific settings before running any destructive commands. I recommend having some previous experience with a linux distrubtion such as Arch, Gentoo, or maybe Fedora.
 
-## First-Time Install Guide (LUKS + TPM + Secure Boot / lanzaboote)
-
 This documents the full reinstall process for hosts in this flake (e.g. `zenbook`, `b550f`) using `disko` for disk provisioning, LUKS full-disk encryption, TPM2 auto-unlock, and `lanzaboote` for Secure Boot with automatic key generation/enrollment.
 
 ## Prerequisites
