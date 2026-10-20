@@ -11,7 +11,7 @@
 > - **nix-gaming**: newer gaming packages and optimizations
 > - **nanocoder**: tracked directly from the upstream project
 >
-> This means that while the flake itself is pinned, some dependencies may be development versions rather than stable releases. Builds can break, upstream APIs can change, and regressions may occur. This configuration is intended for users who are comfortable troubleshooting NixOS and maintaining their own system configuration.
+> This means that while the flake itself is pinned, some dependencies may be development versions rather than stable releases. Builds can break, upstream APIs can change, and regressions may occur.
 
 > [!NOTE]
 > Read through the repository and understand the configuration before installing it. In particular, verify all disk devices, host configuration, boot configuration, and hardware-specific settings before running any destructive commands. I recommend having some previous experience with a linux distrubtion such as Arch, Gentoo, or maybe Fedora.
@@ -43,14 +43,14 @@ lsblk -f
 
 Check the device path matches `disko.devices.disk.main.device` in `hosts/<host>/disko.nix`. **Getting this wrong wipes the wrong drive which would be catastrophic!**
 
-## Reset Secure Boot keys in BIOS
+## Reset Secure Boot keys
 
 If this machine previously had lanzaboote/Secure Boot enrolled, old PK/KEK/db keys likely still live in UEFI NVRAM even after the disk is wiped (Secure Boot state is firmware-side, not disk-side).
 
 In BIOS/UEFI settings, find and use:
 - "Clear Secure Boot Keys" / "Reset to Setup Mode" / "Delete all Secure Boot variables"
 
-## Wipe, partition, format, and mount via disko
+## Partition via disko
 
 ```bash
 sudo nix run github:nix-community/disko -- \
@@ -100,7 +100,7 @@ sudo sbctl sign -s /boot/EFI/BOOT/BOOTX64.EFI
 sudo sbctl verify
 ```
 
-## Enable Secure Boot in BIOS
+## Enable Secure Boot
 
 Reboot into UEFI settings, enable Secure Boot, save, reboot again to confirm a clean boot with enforcement active.
 
