@@ -6,6 +6,12 @@
   inputs,
   ...
 }:
+let
+  repoPath = "${config.home.homeDirectory}/nix";
+  mkMutableSymlink =
+    path:
+    config.lib.file.mkOutOfStoreSymlink (repoPath + lib.removePrefix (toString self) (toString path));
+in
 {
   imports = [
     inputs.noctalia.homeModules.default
@@ -32,7 +38,7 @@
       #     rev = "26f0620e3877b7ebe1f7388d33da9e015ddfa5ed";
       #   };
       # };
-      ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${self}/nvim";
+      ".config/nvim".source = mkMutableSymlink ../nvim;
     };
 
     activation.heliumWidevine = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

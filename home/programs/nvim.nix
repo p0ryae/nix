@@ -2,9 +2,7 @@
 {
   enable = true;
   withNodeJs = true;
-  plugins = with pkgs.vimPlugins; [
-    nvim-treesitter.withAllGrammars
-  ];
+  sideloadInitLua = true;
   extraPackages = with pkgs; [
     typescript
     typescript-language-server
