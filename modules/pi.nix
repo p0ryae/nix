@@ -301,23 +301,29 @@ in
   systemd.services.portfolio = {
     description = "Build Porya's portfolio";
     wantedBy = [ "multi-user.target" ];
+    path = [
+      pkgs.git
+      pkgs.nodejs
+      pkgs.yarn-berry
+    ];
 
     serviceConfig = {
       Type = "oneshot";
       User = "porya";
+      StateDirectory = "portfolio";
       WorkingDirectory = "/var/lib/portfolio";
     };
 
     script = ''
       if [ ! -d .git ]; then
-        ${pkgs.git}/bin/git clone https://github.com/p0ryae/website.git .
+        git clone https://github.com/p0ryae/website.git .
       else
-        ${pkgs.git}/bin/git fetch origin
-        ${pkgs.git}/bin/git reset --hard origin/main
+        git fetch origin
+        git reset --hard origin/main
       fi
 
-      ${pkgs.deno}/bin/deno install
-      ${pkgs.deno}/bin/deno task build
+      yarn install --immutable
+      yarn build
     '';
   };
 }

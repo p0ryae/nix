@@ -21,6 +21,7 @@
     "tpm2-device=auto"
     "tpm2-pcrs=7"
     "tpm2-pin=yes"
+    "tpm2-measure-pcr=yes"
   ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
@@ -46,9 +47,9 @@
     }
   ];
 
-  # home-manager.sharedModules = [
-  #   {
-  #     wayland.windowManager.sway.config.output."*".scale = "1.65";
-  #   }
-  # ];
+  home-manager.sharedModules = [
+    {
+      wayland.windowManager.sway.config.output."*".scale = "1.5";
+    }
+  ];
 }

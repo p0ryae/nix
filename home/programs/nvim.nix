@@ -2,6 +2,9 @@
 {
   enable = true;
   withNodeJs = true;
+  plugins = with pkgs.vimPlugins; [
+    nvim-treesitter.withAllGrammars
+  ];
   extraPackages = with pkgs; [
     typescript
     typescript-language-server
