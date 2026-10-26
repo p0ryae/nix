@@ -5,7 +5,6 @@
 >
 > Examples include:
 >
-> - **llama.cpp**: tracked directly from `ggml-org/llama.cpp`
 > - **Mesa**: tracked through `mesa-git-nix` for newer graphics drivers
 > - **Noctalia**: tracked directly from the Noctalia project
 > - **nix-gaming**: newer gaming packages and optimizations

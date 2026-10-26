@@ -16,6 +16,5 @@
         autoReboot = true;
       };
     };
-    initrd.systemd.enable = true;
   };
 }

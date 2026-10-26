@@ -29,7 +29,7 @@
   ];
   boot.extraModulePackages = [
     config.boot.kernelPackages.kvmfr
-    (config.boot.kernelPackages.callPackage ./cpuid_fault_emulation { })
+    # (config.boot.kernelPackages.callPackage ./cpuid_fault_emulation { })
   ];
   boot.kernelParams = [
     "kvmfr.static_size_mb=64"
@@ -37,7 +37,7 @@
     "amd_iommu=on"
     "pcie_aspm=off"
     "pcie_port_pm=off"
-    "clearcpuid=umip"
+    # "clearcpuid=umip"
   ];
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 

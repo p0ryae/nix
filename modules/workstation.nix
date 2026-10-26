@@ -48,7 +48,6 @@
     overlays = [
       inputs.helium.overlays.default
       inputs.mesa-git-nix.overlays.default
-      inputs.llama-cpp.overlays.default
       # (final: prev: {
       #   azure-vpn-client-unwrapped = prev.callPackage ./azure-vpn-client/package.nix { };
       # })
@@ -133,7 +132,7 @@
     imhex
     pdfarranger
     vulkan-tools
-    (pkgs.llamaPackages.llama-cpp.override { useVulkan = true; })
+    llama-cpp-vulkan
     lan-mouse
     vesktop
     caligula

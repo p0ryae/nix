@@ -5,6 +5,10 @@
     self.submodules = true;
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nix-index = {
+      url = "github:nix-community/nix-index";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/develop";
 
@@ -34,7 +38,6 @@
 
     nix-gaming.url = "github:fufexan/nix-gaming";
     noctalia.url = "github:noctalia-dev/noctalia";
-    llama-cpp.url = "github:ggml-org/llama.cpp";
     helium = {
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";

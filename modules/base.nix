@@ -8,7 +8,7 @@
     kernel.sysctl = {
       "net.ipv4.tcp_congestion_control" = "bbr";
       "net.core.default_qdisc" = "fq";
-      "vm.swappiness" = "20";
+      "vm.swappiness" = "10";
       "vm.vfs_cache_pressure" = "50";
     };
     tmp = {
@@ -104,7 +104,10 @@
       vimAlias = true;
     };
     fish.enable = true;
-    nix-index.enable = true;
+    nix-index = {
+      enable = true;
+      package = inputs.nix-index.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    };
     command-not-found.enable = false;
   };
 
