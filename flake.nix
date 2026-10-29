@@ -136,7 +136,7 @@
               value = mkHost { inherit hostname; };
             })
             [
-              "zenbook"
+              "fw13p"
               "b550f"
             ]
         )
