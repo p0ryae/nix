@@ -319,7 +319,13 @@
     };
   };
 
-  security.rtkit.enable = true;
+  security = {
+    rtkit.enable = true;
+    pam.services = {
+      sudo.fprintAuth = true;
+      polkit-1.fprintAuth = true;
+    };
+  };
 
   custom.virtHooks = {
     enable = true;
