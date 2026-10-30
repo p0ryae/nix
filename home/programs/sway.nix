@@ -136,11 +136,12 @@
         "${modifier}+s" = "exec ${ipc} panel-toggle control-center";
         "${modifier}+comma" = "exec ${ipc} settings-toggle";
         "${modifier}+Shift+r" = "exec ${ipc} config-reload";
-        "--locked XF86AudioRaiseVolume" = "exec ${ipc} volume increase";
-        "--locked XF86AudioLowerVolume" = "exec ${ipc} volume decrease";
-        "--locked XF86AudioMute" = "exec ${ipc} volume muteOutput";
-        "--locked XF86MonBrightnessUp" = "exec ${ipc} brightness increase";
-        "--locked XF86MonBrightnessDown" = "exec ${ipc} brightness decrease";
+
+        "--locked XF86AudioRaiseVolume" = "exec ${ipc} volume-up";
+        "--locked XF86AudioLowerVolume" = "exec ${ipc} volume-down";
+        "--locked XF86AudioMute" = "exec ${ipc} volume-mute";
+        "--locked XF86MonBrightnessUp" = "exec ${ipc} brightness-up";
+        "--locked XF86MonBrightnessDown" = "exec ${ipc} brightness-down";
 
         "${modifier}+Shift+s" = "exec selection=$(slurp) && grim -g \"$selection\" - | wl-copy";
 
