@@ -42,7 +42,7 @@
 
       capsule_group = [
         {
-          fill = "surface_variant";
+          fill = "surface_container";
           id = "g1";
           members = [
             "ram"
@@ -76,7 +76,7 @@
         type = "login_box";
 
         settings = {
-          background_color = "surface_variant";
+          background_color = "surface_container";
           background_opacity = 0.88;
           background_radius = 12.0;
           input_opacity = 1.0;
