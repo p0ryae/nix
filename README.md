@@ -89,13 +89,7 @@ sbctl status
 sudo sbctl verify
 ```
 
-`sbctl verify` should show all ESP files as signed. If `/boot/EFI/BOOT/BOOTX64.EFI` shows unsigned, check which boot entry your firmware actually uses (`bootctl status` → `Boot Loaders:`); if it's the fallback path, fix it with:
-
-```bash
-sudo cp /boot/EFI/systemd/systemd-bootx64.efi /boot/EFI/BOOT/BOOTX64.EFI
-sudo sbctl sign -s /boot/EFI/BOOT/BOOTX64.EFI
-sudo sbctl verify
-```
+`sbctl verify` should show all necessary ESP files as signed. 
 
 ## Enable Secure Boot
 
