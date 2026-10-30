@@ -10,6 +10,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/develop";
 
     nanocoder.url = "github:Nano-Collective/nanocoder";
@@ -99,6 +104,7 @@
             ./modules/workstation.nix
             ./modules/secure-boot.nix
             ./modules/azure-vpn-client/azure-vpn-client.nix
+            inputs.nix-index-database.nixosModules.default
             (mkHomeManager { inherit homeConfig; })
             { networking.hostName = hostname; }
           ]
@@ -121,6 +127,7 @@
             ./hosts/${hostname}/configtxt.nix
             ./modules/base.nix
             ./modules/pi.nix
+            inputs.nix-index-database.nixosModules.default
             (mkHomeManager { inherit homeConfig; })
             { networking.hostName = hostname; }
           ]
