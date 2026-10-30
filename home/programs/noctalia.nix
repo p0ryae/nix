@@ -42,7 +42,7 @@
 
       capsule_group = [
         {
-          fill = "surface_container";
+          fill = "surface_variant";
           id = "g1";
           members = [
             "ram"
