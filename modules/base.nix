@@ -121,6 +121,7 @@
       variant = "";
     };
     fstrim.enable = true;
+    fwupd.enable = true;
   };
 
   virtualisation = {

@@ -64,4 +64,15 @@
       wayland.windowManager.sway.config.output."*".scale = "1.5";
     }
   ];
+
+  services.scx = {
+    scheduler = lib.mkForce "scx_bpfland";
+    extraArgs = lib.mkForce [
+      "--primary-domain"
+      "performance"
+      "--preferred-idle-scan"
+      "--slice-us-lag"
+      "20000"
+    ];
+  };
 }
