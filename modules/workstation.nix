@@ -158,6 +158,7 @@
     hunspellDicts.en_US
     jdk
     gdb
+    valgrind
     attic-client
   ];
 
@@ -194,6 +195,7 @@
         shuffle
       ];
     };
+    nix-ld.enable = true;
   };
 
   services = {
