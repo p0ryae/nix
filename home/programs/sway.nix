@@ -17,8 +17,11 @@
         "type:touchpad" = {
           dwt = "disabled";
           tap = "enabled";
+          tap_button_map = "lrm";
           natural_scroll = "enabled";
           drag_lock = "disabled";
+          accel_profile = "adaptive";
+          pointer_accel = "0.2";
         };
       };
       output = {

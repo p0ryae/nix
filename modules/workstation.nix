@@ -8,7 +8,6 @@
   imports = [
     inputs.nix-gaming.nixosModules.platformOptimizations
     inputs.nix-gaming.nixosModules.pipewireLowLatency
-    inputs.mesa-git-nix.nixosModules.default
     inputs.spicetify-nix.nixosModules.spicetify
     ./virt-hooks.nix
   ];
@@ -47,7 +46,6 @@
     };
     overlays = [
       inputs.helium.overlays.default
-      inputs.mesa-git-nix.overlays.default
       # (final: prev: {
       #   azure-vpn-client-unwrapped = prev.callPackage ./azure-vpn-client/package.nix { };
       # })
@@ -162,14 +160,6 @@
     gdb
     attic-client
   ];
-
-  mesa-git = {
-    enable = true;
-    drivers = [
-      "amd"
-      "intel"
-    ];
-  };
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
 

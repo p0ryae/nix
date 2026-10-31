@@ -1,12 +1,14 @@
 {
   config,
   lib,
+  inputs,
   modulesPath,
   ...
 }:
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.mesa-git-nix.nixosModules.default
   ];
   boot.initrd.availableKernelModules = [
     "nvme"
@@ -19,6 +21,12 @@
     "vfio"
     "vfio_iommu_type1"
   ];
+
+  nixpkgs = {
+    overlays = [
+      inputs.mesa-git-nix.overlays.default
+    ];
+  };
 
   boot.kernelModules = [
     "kvm-amd"
@@ -69,6 +77,12 @@
     };
   };
   hardware.wooting.enable = true;
+  mesa-git = {
+    enable = true;
+    drivers = [
+      "amd"
+    ];
+  };
 
   swapDevices = [
     {
