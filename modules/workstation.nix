@@ -13,8 +13,8 @@
   ];
 
   boot = {
-    kernelpackages = lib.mkdefault pkgs.linuxpackages_latest;
-    kernelmodules = [ "bfq" ];
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    kernelModules = [ "bfq" ];
   };
 
   hardware.block.scheduler = {
