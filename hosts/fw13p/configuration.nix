@@ -17,13 +17,16 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-
+  boot.kernelParams = [
+    "nvme.noacpi=1"
+  ];
   boot.initrd.luks.devices."cryptroot".crypttabExtraOpts = [
     "tpm2-device=auto"
     "tpm2-pcrs=7"
     "tpm2-pin=yes"
     "tpm2-measure-pcr=yes"
   ];
+  boot.blacklistedKernelModules = [ "cros-usbpd-charger" ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -39,6 +42,13 @@
       libvdpau-va-gl
     ];
   };
+  hardware.acpilight.enable = lib.mkDefault true;
+
+  services.udev.extraRules = ''
+    # Fix headphone noise when on powersave
+    # https://community.frame.work/t/headphone-jack-intermittent-noise/5246/55
+    SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0xa0e0", ATTR{power/control}="on"
+  '';
 
   services.fprintd.enable = true;
 
@@ -59,12 +69,6 @@
     }
   ];
 
-  home-manager.sharedModules = [
-    {
-      wayland.windowManager.sway.config.output."*".scale = "1.5";
-    }
-  ];
-
   services.scx = {
     scheduler = lib.mkForce "scx_bpfland";
     extraArgs = lib.mkForce [
@@ -75,4 +79,15 @@
       "20000"
     ];
   };
+
+  environment.systemPackages = with pkgs; [
+    fw-ectool
+    framework-tool
+  ];
+
+  home-manager.sharedModules = [
+    {
+      wayland.windowManager.sway.config.output."*".scale = "1.5";
+    }
+  ];
 }
