@@ -13,12 +13,8 @@
   ];
 
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-    kernelParams = [
-      "amdgpu.ppfeaturemask=0xffffffff"
-      # "pcie_acs_override=downstream,multifunction"
-    ];
-    kernelModules = [ "bfq" ];
+    kernelpackages = lib.mkdefault pkgs.linuxpackages_latest;
+    kernelmodules = [ "bfq" ];
   };
 
   hardware.block.scheduler = {
@@ -36,7 +32,6 @@
           "spotify"
           "steam"
           "steam-unwrapped"
-          # "azure-vpn-client-unwrapped"
           "wootility"
           "widevine-cdm"
           "corefonts"
@@ -46,9 +41,6 @@
     };
     overlays = [
       inputs.helium.overlays.default
-      # (final: prev: {
-      #   azure-vpn-client-unwrapped = prev.callPackage ./azure-vpn-client/package.nix { };
-      # })
       (final: prev: {
         tela-circle-icon-theme = prev.tela-circle-icon-theme.overrideAttrs {
           dontCheckForBrokenSymlinks = true;
@@ -175,9 +167,7 @@
       enable = true;
       binfmt = true;
     };
-    # openvpn3.enable = true;
     virt-manager.enable = true;
-    # azure-vpn-client.enable = true;
     obs-studio = {
       enable = true;
       plugins = with pkgs.obs-studio-plugins; [

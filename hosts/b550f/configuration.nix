@@ -40,6 +40,8 @@
     # (config.boot.kernelPackages.callPackage ./cpuid_fault_emulation { })
   ];
   boot.kernelParams = [
+    "amdgpu.ppfeaturemask=0xffffffff"
+    # "pcie_acs_override=downstream,multifunction"
     "kvmfr.static_size_mb=64"
     "iommu=pt"
     "amd_iommu=on"

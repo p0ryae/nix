@@ -103,7 +103,6 @@
             ./modules/base.nix
             ./modules/workstation.nix
             ./modules/secure-boot.nix
-            ./modules/azure-vpn-client/azure-vpn-client.nix
             inputs.nix-index-database.nixosModules.default
             (mkHomeManager { inherit homeConfig; })
             { networking.hostName = hostname; }
