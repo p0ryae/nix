@@ -49,7 +49,6 @@
     "pcie_port_pm=off"
     # "clearcpuid=umip"
   ];
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   fileSystems."/mnt/nvme1" = {
     device = "/dev/disk/by-partuuid/367c3a3f-de9c-44e0-a672-05547055d572";

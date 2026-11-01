@@ -15,6 +15,7 @@
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     kernelModules = [ "bfq" ];
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
 
   hardware.block.scheduler = {
