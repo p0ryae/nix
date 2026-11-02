@@ -88,6 +88,13 @@
     framework-tool
   ];
 
+  security.wrappers.btop = {
+    source = "${pkgs.btop}/bin/btop";
+    capabilities = "cap_perfmon=ep";
+    owner = "root";
+    group = "root";
+  };
+
   home-manager.sharedModules = [
     {
       wayland.windowManager.sway.config.output."*".scale = "1.5";

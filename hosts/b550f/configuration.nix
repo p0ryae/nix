@@ -26,6 +26,8 @@
     overlays = [
       inputs.mesa-git-nix.overlays.default
     ];
+    rocmSupport = true;
+    config.rocmSupport = true;
   };
 
   boot.kernelModules = [
@@ -84,6 +86,8 @@
       "amd"
     ];
   };
+
+  programs.lact.enable = true;
 
   swapDevices = [
     {

@@ -24,9 +24,6 @@
 
   nixpkgs = {
     config = {
-      # needed for machine learning, LLMs, and btop
-      # well... "needed" is a strong word, so maybe preferred
-      rocmSupport = true;
       allowUnfreePredicate =
         pkg:
         builtins.elem (lib.getName pkg) [
