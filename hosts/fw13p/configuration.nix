@@ -13,23 +13,27 @@
     "nvme"
     "xhci_pci"
     "rtsx_pci_sdmmc"
+    "lz4"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
   boot.kernelParams = [
     "nvme.noacpi=1"
+    "hibernate.compressor=lz4"
   ];
   boot.initrd.luks.devices."cryptroot".crypttabExtraOpts = [
     "tpm2-device=auto"
     "tpm2-pcrs=7"
     "tpm2-pin=yes"
     "tpm2-measure-pcr=yes"
+    "no-read-workqueue"
+    "no-write-workqueue"
   ];
   boot.blacklistedKernelModules = [ "cros-usbpd-charger" ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.bluetooth.enable = true;
   hardware.graphics = {
     enable = true;
