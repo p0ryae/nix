@@ -89,7 +89,7 @@ sbctl status
 sudo sbctl verify
 ```
 
-`sbctl verify` should show all necessary ESP files as signed. 
+`sbctl verify` should show all necessary ESP files as signed (with the kernel being an exception).
 
 ## Enable Secure Boot
 
