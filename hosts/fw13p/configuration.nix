@@ -42,8 +42,7 @@
     extraPackages = with pkgs; [
       intel-media-driver
       vpl-gpu-rt
-      libva-vdpau-driver
-      libvdpau-va-gl
+      intel-compute-runtime
     ];
   };
   hardware.acpilight.enable = lib.mkDefault true;
