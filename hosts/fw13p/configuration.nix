@@ -51,6 +51,9 @@
     # Fix headphone noise when on powersave
     # https://community.frame.work/t/headphone-jack-intermittent-noise/5246/55
     SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0xa0e0", ATTR{power/control}="on"
+
+    # Prevent Framework 13 Goodix Fingerprint Reader (27c6:609c) from autosuspending
+    SUBSYSTEM=="usb", ATTR{idVendor}=="27c6", ATTR{idProduct}=="609c", ATTR{power/control}="on"
   '';
 
   services.fprintd.enable = true;
