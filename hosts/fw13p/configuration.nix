@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  inputs,
   modulesPath,
   pkgs,
   ...
@@ -8,6 +9,7 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.mesa-git-nix.nixosModules.default
   ];
   boot.initrd.availableKernelModules = [
     "nvme"
@@ -33,6 +35,11 @@
   boot.blacklistedKernelModules = [ "cros-usbpd-charger" ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs = {
+    overlays = [
+      inputs.mesa-git-nix.overlays.default
+    ];
+  };
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.bluetooth.enable = true;
   hardware.graphics = {
@@ -43,6 +50,12 @@
       intel-media-driver
       vpl-gpu-rt
       intel-compute-runtime
+    ];
+  };
+  mesa-git = {
+    enable = true;
+    drivers = [
+      "intel"
     ];
   };
   hardware.acpilight.enable = lib.mkDefault true;
