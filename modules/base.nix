@@ -82,6 +82,7 @@
     fastfetch
     nvd
     nixos-anywhere
+    nix-tree
     inputs.agenix.packages.${stdenv.hostPlatform.system}.default
     jq
     go

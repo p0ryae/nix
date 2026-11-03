@@ -142,7 +142,6 @@
     r2modman
     mdbook
     inputs.nanocoder.packages.${pkgs.stdenv.hostPlatform.system}.default
-    localsend
     libreoffice-stable
     hunspell
     hunspellDicts.en_US
@@ -255,6 +254,17 @@
         "--performance"
         "--pinned-slice-us 500"
       ];
+    };
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      settings = {
+        publish = {
+          "disable-publishing" = false;
+          "publish-workstation" = true;
+          "publish-addresses" = true;
+        };
+      };
     };
     udev.packages = lib.singleton (
       pkgs.writeTextFile {

@@ -49,10 +49,6 @@ in
     '';
   };
 
-  home.packages = with pkgs; [
-    git-credential-manager
-  ];
-
   programs = {
     fish = {
       enable = true;
