@@ -48,7 +48,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     mesa-git-nix = {
-      url = "github:p0ryae/mesa-git-nix";
+      url = "github:daaboulex/mesa-git-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
