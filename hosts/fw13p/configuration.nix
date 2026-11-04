@@ -88,15 +88,6 @@
     ];
   };
 
-  services.easyeffects = {
-    enable = true;
-    preset = "stirlingsilver-preset";
-
-    extraPresets = {
-      stirlingsilver-preset = builtins.fromJSON (builtins.readFile ./easyeffects.json);
-    };
-  };
-
   systemd.sleep.settings.Sleep = {
     HibernateDelaySec = "2h";
   };
@@ -123,6 +114,12 @@
   home-manager.sharedModules = [
     {
       wayland.windowManager.sway.config.output."*".scale = "1.5";
+      services.easyeffects = {
+        enable = true;
+        extraPresets = {
+          stirlingsilver-preset = builtins.fromJSON (builtins.readFile ./easyeffects.json);
+        };
+      };
     }
   ];
 }
