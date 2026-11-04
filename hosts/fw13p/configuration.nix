@@ -77,17 +77,6 @@
     HandleLidSwitchDocked = "ignore";
   };
 
-  systemd.sleep.settings.Sleep = {
-    HibernateDelaySec = "2h";
-  };
-
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 32 * 1024;
-    }
-  ];
-
   services.scx = {
     scheduler = lib.mkForce "scx_bpfland";
     extraArgs = lib.mkForce [
@@ -98,6 +87,26 @@
       "20000"
     ];
   };
+
+  services.easyeffects = {
+    enable = true;
+    preset = "stirlingsilver-preset";
+
+    extraPresets = {
+      stirlingsilver-preset = builtins.fromJSON (builtins.readFile ./easyeffects.json);
+    };
+  };
+
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "2h";
+  };
+
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 32 * 1024;
+    }
+  ];
 
   environment.systemPackages = with pkgs; [
     fw-ectool

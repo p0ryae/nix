@@ -105,7 +105,6 @@
     file-roller
     swayimg
     mpv
-    easyeffects
     ddcutil
     wiremix
     tela-circle-icon-theme
