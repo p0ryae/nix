@@ -96,7 +96,7 @@ sudo sbctl verify
 Reboot into UEFI settings, enable Secure Boot, save, reboot again to confirm a clean boot with enforcement active.
 
 ## TPM auto-unlock enrollment
-Great, now you have secure boot, but you still need to manually enter your LUKS passphrase every time you boot your system, which is very tedious. THe proper way to securely skip entering this passphrase on every boot is via the TPM2 module on your board. You can basically cause a secret handshake (better to say cause a bind) between your OS disk and your TPM2 module. You can achieve this by **properly** enrolling your binding to the chip via systemd's cryptenroll: 
+Great, now you have secure boot, but you still need to manually enter your LUKS passphrase every time you boot your system, which is very tedious. The proper way to securely skip entering this passphrase on every boot is via the TPM2 module on your board. You can basically cause a secret handshake (a bind) between your OS disk and your TPM2 module. You can achieve this by **properly** enrolling your binding to the chip via systemd's cryptenroll: 
 
 ```bash
 lsblk -f   # confirm actual partition name/number for root
