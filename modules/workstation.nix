@@ -181,7 +181,6 @@
         shuffle
       ];
     };
-    nix-ld.enable = true;
   };
 
   services = {
