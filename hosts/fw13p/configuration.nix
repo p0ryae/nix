@@ -78,12 +78,12 @@
     scheduler = lib.mkForce "scx_bpfland";
     extraArgs = lib.mkForce [
       "--primary-domain"
-      "performance"
+      "auto"
       "--preferred-idle-scan"
-      "--slice-us-lag"
-      "20000"
     ];
   };
+
+  services.thermald.enable = true;
 
   systemd.sleep.settings.Sleep = {
     HibernateDelaySec = "2h";
