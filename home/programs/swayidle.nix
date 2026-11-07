@@ -7,16 +7,11 @@ in
 {
   enable = true;
 
-  events = [
-    {
-      event = "before-sleep";
-      command = "${loginctl} lock-session";
-    }
-    {
-      event = "after-resume";
-      command = display "on";
-    }
-  ];
+  events = {
+    before-sleep = "${loginctl} lock-session";
+    after-resume = display "on";
+    lock = "${pkgs.swaylock}/bin/swaylock -f";
+  };
 
   timeouts = [
     {

@@ -113,7 +113,16 @@
 
   home-manager.sharedModules = [
     {
-      wayland.windowManager.sway.config.output."*".scale = "1.5";
+      wayland.windowManager.sway.config = {
+        startup = [
+          { command = "${pkgs.wl-gammactl}/bin/wl-gammactl -c 1.0 -b 1.0 -g 0.85"; }
+        ];
+        output."eDP-1" = {
+          scale = "1.5";
+          color_profile = lib.mkForce "icc ${./BOE0CB4.icm}";
+        };
+      };
+
       services.easyeffects = {
         enable = true;
         extraPresets = {

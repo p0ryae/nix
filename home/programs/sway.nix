@@ -37,11 +37,11 @@
         {
           command = "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --start --foreground --components=secrets";
         }
-        { command = "${pkgs.hypridle}/bin/hypridle"; }
+        { command = "${pkgs.swayidle}/bin/swayidle -w"; }
       ];
       gaps = {
-        inner = 5;
-        outer = 10;
+        inner = 10;
+        outer = 0;
       };
       window = {
         border = 2;
