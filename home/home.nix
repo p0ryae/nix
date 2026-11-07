@@ -70,7 +70,7 @@ in
   services = {
     mpris-proxy.enable = true;
 
-    hypridle = import ./programs/hypridle.nix { inherit pkgs; };
+    swayidle = import ./programs/swayidle.nix { inherit pkgs; };
   };
 
   gtk = {
