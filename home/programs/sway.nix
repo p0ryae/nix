@@ -26,7 +26,6 @@
       };
       output = {
         "*" = {
-          color_profile = "icc ${pkgs.colord}/share/color/icc/colord/AppleRGB.icc";
           adaptive_sync = "on";
         };
       };

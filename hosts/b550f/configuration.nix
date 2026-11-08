@@ -3,6 +3,7 @@
   lib,
   inputs,
   modulesPath,
+  pkgs,
   ...
 }:
 {
@@ -85,6 +86,19 @@
       "amd"
     ];
   };
+
+  home-manager.sharedModules = [
+    {
+      wayland.windowManager.sway.config = {
+        startup = [
+          { command = "${pkgs.wl-gammactl}/bin/wl-gammactl -c 1.0 -b 1.0 -g 1.0"; }
+        ];
+        output."DP-2" = {
+          color_profile = lib.mkForce "icc ${./27GP83B-B.icm}";
+        };
+      };
+    }
+  ];
 
   swapDevices = [
     {
