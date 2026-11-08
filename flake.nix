@@ -5,10 +5,6 @@
     self.submodules = true;
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nix-index = {
-      url = "github:nix-community/nix-index";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     nix-index-database = {
       url = "github:nix-community/nix-index-database";

@@ -105,10 +105,6 @@
       vimAlias = true;
     };
     fish.enable = true;
-    nix-index = {
-      enable = true;
-      package = inputs.nix-index.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    };
     command-not-found.enable = false;
   };
 
