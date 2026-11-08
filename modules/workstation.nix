@@ -119,6 +119,7 @@
     gdb
     valgrind
     wireshark
+    deskflow
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
