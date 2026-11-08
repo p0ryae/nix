@@ -10,7 +10,7 @@
     gopls
     svelte-language-server
     clang-tools
-    neocmakelsp
+    # neocmakelsp
     pyright
     elixir-ls
     jdt-language-server

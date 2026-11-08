@@ -74,13 +74,16 @@
     HandleLidSwitchDocked = "ignore";
   };
 
-  services.scx = {
-    scheduler = lib.mkForce "scx_bpfland";
-    extraArgs = lib.mkForce [
-      "--primary-domain"
-      "auto"
-      "--preferred-idle-scan"
-    ];
+  services.scx-loader.config = {
+    default_sched = lib.mkForce "scx_bpfland";
+
+    scheds.scx_bpfland = {
+      auto_mode = lib.mkForce [
+        "--primary-domain"
+        "auto"
+        "--preferred-idle-scan"
+      ];
+    };
   };
 
   services.thermald.enable = true;

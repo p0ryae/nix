@@ -92,7 +92,6 @@
     pdfarranger
     vulkan-tools
     llama-cpp-vulkan
-    lan-mouse
     vesktop
     caligula
     dnsmasq
@@ -165,7 +164,6 @@
       enable = true;
       alsa.enable = true;
       pulse.enable = true;
-      jack.enable = true;
       lowLatency = {
         enable = true;
       };
@@ -218,13 +216,20 @@
       user = "porya";
       dataDir = "/home/porya";
     };
-    scx = {
+    scx-loader = {
       enable = true;
-      scheduler = "scx_lavd";
-      extraArgs = [
-        "--performance"
-        "--pinned-slice-us 500"
-      ];
+      config = {
+        default_sched = "scx_lavd";
+        default_mode = "Auto";
+
+        scheds.scx_lavd = {
+          auto_mode = [
+            "--performance"
+            "--pinned-slice-us"
+            "500"
+          ];
+        };
+      };
     };
     avahi = {
       enable = true;

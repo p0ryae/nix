@@ -85,15 +85,24 @@ in
   ];
 
   services = {
-    scx = {
+    scx-loader = {
       enable = true;
-      scheduler = "scx_lavd";
-      extraArgs = [
-        "--performance"
-        "--slice-min-us 3000"
-        "--slice-max-us 10000"
-        "--pinned-slice-us 3000"
-      ];
+      config = {
+        default_sched = "scx_lavd";
+        default_mode = "Auto";
+
+        scheds.scx_lavd = {
+          auto_mode = [
+            "--performance"
+            "--slice-min-us"
+            "3000"
+            "--slice-max-us"
+            "10000"
+            "--pinned-slice-us"
+            "3000"
+          ];
+        };
+      };
     };
     fail2ban = {
       enable = true;
