@@ -23,41 +23,13 @@
   };
 
   nixpkgs = {
-    config = {
-      allowUnfreePredicate =
-        pkg:
-        builtins.elem (lib.getName pkg) [
-          "spotify"
-          "steam"
-          "steam-unwrapped"
-          "wootility"
-          "widevine-cdm"
-          "corefonts"
-          "vista-fonts"
-          "beeper"
-        ];
-    };
+    config.allowUnfree = true;
     overlays = [
       inputs.helium.overlays.default
       (final: prev: {
         tela-circle-icon-theme = prev.tela-circle-icon-theme.overrideAttrs {
           dontCheckForBrokenSymlinks = true;
         };
-      })
-      (self: super: {
-        yt-dlp = super.yt-dlp.overrideAttrs (oldAttrs: {
-          postPatch = ''
-            substituteInPlace yt_dlp/version.py \
-              --replace-fail "UPDATE_HINT = None" 'UPDATE_HINT = "Nixpkgs/NixOS likely already contain an updated version.\n       To get it run nix-channel --update or nix flake update in your config directory."'
-            ${lib.optionalString true ''
-              # deno is required for full YouTube support (since 2025.11.12).
-              # This makes yt-dlp find deno even if it is used as a python dependency, i.e. in kodiPackages.sendtokodi.
-              # Crafted so people can replace deno with one of the other JS runtimes.
-              substituteInPlace yt_dlp/utils/_jsruntime.py \
-                --replace-fail "path = _determine_runtime_path(self._path, '${pkgs.nodejs.meta.mainProgram}')" "path = '${lib.getExe pkgs.nodejs}'"
-            ''}
-          '';
-        });
       })
     ];
   };
@@ -147,7 +119,7 @@
     jdk
     gdb
     valgrind
-    attic-client
+    wireshark
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
@@ -163,6 +135,7 @@
       enable = true;
       binfmt = true;
     };
+    gamemode.enable = true;
     virt-manager.enable = true;
     obs-studio = {
       enable = true;

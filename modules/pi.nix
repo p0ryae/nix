@@ -14,9 +14,6 @@ in
     "vm.mmap_rnd_bits" = 28;
     "net.ipv4.ip_forward" = 1;
   };
-  # boot.extraModprobeConfig = ''
-  #   options rtw88_core disable_lps_deep=Y
-  # '';
 
   imports = [
     "${podman}/adguardhome.nix"
@@ -25,14 +22,13 @@ in
     "${podman}/authentik.nix"
     "${podman}/baikal.nix"
     "${podman}/syncthing.nix"
-    # "${podman}/searxng.nix"
   ];
 
   age.secrets."wifi".file = "${self}/secrets/wifi.age";
-  age.secrets.atticd-env.file = ../secrets/atticd-env.age;
 
   environment.etc."resolv.conf".text = ''
-    nameserver 192.168.1.81
+    nameserver 127.0.0.1
+    nameserver ::1
   '';
 
   networking = {
@@ -57,9 +53,6 @@ in
 
         # baikal
         8484
-
-        # attic
-        8080
       ];
       allowedUDPPorts = [
         # adguardhome
@@ -200,21 +193,6 @@ in
             '';
           };
         };
-      };
-    };
-    atticd = {
-      enable = true;
-      environmentFile = config.age.secrets.atticd-env.path;
-      settings = {
-        listen = "[::]:8080";
-        api-endpoint = "http://192.168.1.81:8080/";
-
-        storage = {
-          type = "local";
-          path = "/var/lib/atticd/storage";
-        };
-
-        garbage-collection.default-retention-period = "3 months";
       };
     };
     # hostapd = {
