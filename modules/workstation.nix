@@ -24,6 +24,9 @@
 
   nixpkgs = {
     config.allowUnfree = true;
+    overlays = [
+      inputs.helium.overlays.default
+    ];
   };
 
   systemd.services = {
