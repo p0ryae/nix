@@ -24,9 +24,6 @@
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [
-      inputs.helium.overlays.default
-    ];
   };
 
   systemd.services = {
@@ -200,7 +197,7 @@
         };
       };
     };
-    auto-cpufreq.enable = true;
+    power-profiles-daemon.enable = true;
     upower.enable = true;
     gvfs.enable = true;
     flatpak.enable = true;
