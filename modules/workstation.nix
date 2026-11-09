@@ -26,11 +26,6 @@
     config.allowUnfree = true;
     overlays = [
       inputs.helium.overlays.default
-      (final: prev: {
-        tela-circle-icon-theme = prev.tela-circle-icon-theme.overrideAttrs {
-          dontCheckForBrokenSymlinks = true;
-        };
-      })
     ];
   };
 
@@ -205,7 +200,7 @@
         };
       };
     };
-    power-profiles-daemon.enable = true;
+    auto-cpufreq.enable = true;
     upower.enable = true;
     gvfs.enable = true;
     flatpak.enable = true;
