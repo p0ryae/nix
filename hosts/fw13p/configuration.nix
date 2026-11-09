@@ -87,8 +87,6 @@
   };
 
   services.thermald.enable = true;
-  services.power-profiles-daemon.enable = lib.mkForce false;
-  services.auto-cpufreq.enable = true;
 
   systemd.sleep.settings.Sleep = {
     HibernateDelaySec = "2h";
