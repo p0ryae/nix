@@ -109,7 +109,6 @@
       sudo modprobe -r cpuid_fault_emulation
       sudo modprobe kvm_amd kvm
     '')
-    r2modman
     mdbook
     inputs.nanocoder.packages.${pkgs.stdenv.hostPlatform.system}.default
     libreoffice-stable
@@ -119,7 +118,6 @@
     gdb
     valgrind
     wireshark
-    deskflow
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
