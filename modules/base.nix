@@ -95,6 +95,7 @@
     eza
     bat
     pciutils
+    bind
   ];
 
   programs = {
