@@ -45,6 +45,7 @@
     "libvirtd"
     "kvm"
     "wireshark"
+    "input"
   ];
 
   fonts.packages = with pkgs; [
@@ -245,6 +246,10 @@
         destination = "/etc/udev/rules.d/70-kvmfr.rules";
       }
     );
+    services.espanso = {
+      enable = true;
+      package = pkgs.espanso-wayland;
+    };
   };
 
   xdg.portal = {
