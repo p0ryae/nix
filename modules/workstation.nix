@@ -246,7 +246,7 @@
         destination = "/etc/udev/rules.d/70-kvmfr.rules";
       }
     );
-    services.espanso = {
+    espanso = {
       enable = true;
       package = pkgs.espanso-wayland;
     };
