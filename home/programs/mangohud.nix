@@ -2,6 +2,8 @@
   enable = true;
   enableSessionWide = true;
   settings = {
+    blacklist = "llama-server,llama-cli,llama-bench,llama-run";
+
     no_display = true;
     font_scale = 0.8;
     round_corners = 8;
