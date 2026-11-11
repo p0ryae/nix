@@ -246,10 +246,6 @@
         destination = "/etc/udev/rules.d/70-kvmfr.rules";
       }
     );
-    espanso = {
-      enable = true;
-      package = pkgs.espanso-wayland;
-    };
   };
 
   xdg.portal = {
