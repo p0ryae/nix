@@ -60,11 +60,13 @@ in
         5443
         8989
       ];
-      interfaces.wlu1 = {
-        allowedUDPPorts = [
-          # DHCP server (for WiFi clients)
-          67
-        ];
+      interfaces = {
+        wlu1 = {
+          allowedUDPPorts = [
+            # DHCP server (for WiFi clients)
+            67
+          ];
+        };
       };
     };
     # nat = {
@@ -79,6 +81,10 @@ in
     #   }
     # ];
   };
+
+  # TODO: need to figure out to dynamically figure this out
+  # using loopback seems to cause internal dns resolving issues
+  virtualisation.containers.containersConf.settings.containers.dns_servers = [ "192.168.1.81" ];
 
   environment.systemPackages = with pkgs; [
     raspberrypi-eeprom
