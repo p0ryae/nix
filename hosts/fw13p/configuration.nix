@@ -64,6 +64,10 @@
     # Fix headphone noise when on powersave
     # https://community.frame.work/t/headphone-jack-intermittent-noise/5246/55
     SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0xa0e0", ATTR{power/control}="on"
+
+    # Disable the touchpad as a wake source to prevent the laptop from hotbagging
+    # https://www.reddit.com/r/framework/comments/1xz1qo8/fw_13_pro_linux_disable_the_touchpad_as_a_wake/
+    ACTION=="add|bind", SUBSYSTEM=="i2c", KERNEL=="i2c-PIXA3854:00", TEST=="power/wakeup", ATTR{power/wakeup}="disabled"
   '';
 
   services.fprintd.enable = true;

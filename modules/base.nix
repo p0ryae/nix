@@ -96,6 +96,7 @@
     bat
     pciutils
     bind
+    yarn-berry
   ];
 
   programs = {
