@@ -4,6 +4,9 @@
   inputs,
   ...
 }:
+let
+  wl-pick = pkgs.callPackage ./wl-pick.nix { };
+in
 {
   imports = [
     inputs.nix-gaming.nixosModules.platformOptimizations
@@ -114,6 +117,7 @@
     gdb
     valgrind
     wireshark
+    wl-pick
   ];
 
   environment.sessionVariables.WLR_RENDERER = "vulkan";
@@ -255,7 +259,7 @@
       settings = {
         screencast = {
           chooser_type = "simple";
-          chooser_cmd = "slurp -f 'Monitor: %o' -or";
+          chooser_cmd = "${lib.getExe wl-pick} --format portal";
         };
       };
     };
