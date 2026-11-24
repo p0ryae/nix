@@ -9,6 +9,7 @@
       "net.ipv4.tcp_congestion_control" = "bbr";
       "net.core.default_qdisc" = "fq";
       "vm.swappiness" = "10";
+      # filesystem dir and inode cache memory reclaim aggressiveness
       "vm.vfs_cache_pressure" = "50";
     };
     tmp = {

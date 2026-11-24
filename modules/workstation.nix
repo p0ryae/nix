@@ -12,17 +12,23 @@ in
     inputs.nix-gaming.nixosModules.platformOptimizations
     inputs.nix-gaming.nixosModules.pipewireLowLatency
     inputs.spicetify-nix.nixosModules.spicetify
-    ./virt-hooks.nix
+    # ./virt-hooks.nix
   ];
 
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-    kernelModules = [ "bfq" ];
+    kernel.sysctl = {
+      # throttle processes that generate dirty pages once x% of system memory is dirty
+      "vm.dirty_ratio" = "10";
+      # write dirty pages to disk when x% of system memory is dirty
+      "vm.dirty_background_ratio" = "5";
+    };
     binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
 
   hardware.block.scheduler = {
-    "nvme[0-9]*" = "bfq";
+    # use NVMe's internal I/O scheduling
+    "nvme[0-9]*" = "none";
   };
 
   nixpkgs = {
@@ -215,6 +221,7 @@ in
       user = "porya";
       dataDir = "/home/porya";
     };
+    fstrim.enable = true;
     scx-loader = {
       enable = true;
       config = {
@@ -294,14 +301,14 @@ in
     };
   };
 
-  custom.virtHooks = {
-    enable = true;
-    vms = [
-      {
-        name = "win11";
-        gpuAddress = "0000:04:00.0";
-        audioAddress = "0000:04:00.1";
-      }
-    ];
-  };
+  # custom.virtHooks = {
+  #   enable = true;
+  #   vms = [
+  #     {
+  #       name = "win11";
+  #       gpuAddress = "0000:04:00.0";
+  #       audioAddress = "0000:04:00.1";
+  #     }
+  #   ];
+  # };
 }
